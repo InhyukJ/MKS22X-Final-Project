@@ -21,3 +21,14 @@ public class Event {
     }
    
     //Distance between two objects, walls are offset by 30, 30
+    public float distanceObj12() {
+	if (!a.isWall() && !b.isWall()) {
+	    return Math.abs(a.getX() - b.getX());
+	}
+	else if (a.isWall()) {
+	    return Math.abs(a.getX)
+	}
+	else (b.isWall()) {
+
+	}
+    }
