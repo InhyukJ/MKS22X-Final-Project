@@ -22,13 +22,16 @@ public class Event {
    
     //Distance between two objects, walls are offset by 30, 30
     public float distanceObj12() {
-	if (!a.isWall() && !b.isWall()) {
+	if (!a.isWall() && !b.isWall()) {//this will change once 2D is implemented
 	    return Math.abs(a.getX() - b.getX());
 	}
-	else if (a.isWall()) {
-	    return Math.abs(a.getX)
-	}
-	else (b.isWall()) {
-
-	}
+	else {
+	    //boolean isTopLeft/isHorizontal
+	    //isTopLeft && isHorizontal == North
+	    //isTopLeft && !isHorizontal == West
+	    //!isTopLeft && isHorizontal == South
+	    //!isTopLeft && !isHorizontal == East
+	    if (a.isWall()) {
+		if (a.isTopLeft() && a.isHorizontal())
+	    return Math.abs(a.getX() - b.getX())
     }
