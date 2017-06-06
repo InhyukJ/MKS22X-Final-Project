@@ -1,9 +1,9 @@
 public class Event {
-    private float time;
-    private Obj a, b; //Balls
+    //private float time;
+    private Obj a, b; //Ball, Wall
 
-    public Event(float time, Obj a, Obj b) {
-	this.time = time;
+    public Event(Obj a, Obj b) {
+	//this.time = time;
 	this.a = a;
 	this.b = b;
     }
@@ -15,10 +15,11 @@ public class Event {
     public Obj getObj2() {
 	return b;
     }
-
+    /*
     public float getTime() {
 	return time;
     }
+    */
    
     //Distance between two objects, walls are offset by 30, 30
     public float distanceObj12() {
@@ -32,7 +33,7 @@ public class Event {
 	    //!isTopLeft && isHorizontal == South
 	    //!isTopLeft && !isHorizontal == East
 	    if (a.isWall()) {
-		if (a.isHorizontal()) {
+		if (((Wall)a).isHorizontal()) {
 		    return Math.abs(a.getY() - b.getY());
 		}
 		else {
@@ -40,7 +41,7 @@ public class Event {
 		}
 	    }
 	    else {
-		if (b.isHorizontal()) {
+		if (((Wall)b).isHorizontal()) {
 		    return Math.abs(b.getY() - b.getY());
 		}
 		else {
@@ -49,4 +50,8 @@ public class Event {
 	    }
 	}
     }
+
+    public float compareTo(Event other) {
+	return this.distanceObj12() - other.distanceObj12();
+    } 
 }
