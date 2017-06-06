@@ -32,6 +32,21 @@ public class Event {
 	    //!isTopLeft && isHorizontal == South
 	    //!isTopLeft && !isHorizontal == East
 	    if (a.isWall()) {
-		if (a.isTopLeft() && a.isHorizontal())
-	    return Math.abs(a.getX() - b.getX())
+		if (a.isHorizontal()) {
+		    return Math.abs(a.getY() - b.getY());
+		}
+		else {
+		    return Math.abs(a.getX() - b.getX());
+		}
+	    }
+	    else {
+		if (b.isHorizontal()) {
+		    return Math.abs(b.getY() - b.getY());
+		}
+		else {
+		    return Math.abs(b.getX() - b.getX());
+		}
+	    }
+	}
     }
+}
