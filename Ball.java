@@ -42,4 +42,14 @@ public class Ball {
     public void setX(float x) {this.x = x;}
     public void setY(float y) {this.y = y;}
     public void setVel(float vel) {this.vel = vel;}
+
+    public boolean isWall() {
+	return false;
+    }
+    public boolean isHorizontal() {
+	return false;
+    }
+    public boolean isTopLeft() {
+	return false;
+    }
 }
