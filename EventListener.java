@@ -1,5 +1,5 @@
-
 import java.util.*;
+import java.lang.Thread;
 
 public class EventListener {
     private PriorityQueue<Event> PQ;
@@ -41,13 +41,13 @@ public class EventListener {
      */
 
     public void update() {
+	//Thread.sleep(someDelayTime)
+	updateH();
+    }
+    private void updateH() {
 	Event pEvt = PQ.peek();
-<<<<<<< HEAD
-	
-=======
 	Obj Obj1 = pEvt.getObj1();
 	Obj Obj2 = pEvt.getObj2();
->>>>>>> a2de7889a08cbb2ccdefec3dc8e2dcb3f0f35c6d
 	if (isColliding(pEvt)) {
 	    if (!Obj1.isWall() && !Obj2.isWall()) {
 		((Ball)Obj1).bounceB();
@@ -62,19 +62,15 @@ public class EventListener {
 		else ((Ball)Obj2).bounceX();
 	    }
 	}
+	//update values
     }
     
     private boolean isColliding(Event evt) {
 	return evt.distanceObj12() < 5.0f;
     }
-<<<<<<< HEAD
 
     private Obj[] returnObj(Evt evt) {
 	Obj[] objects = new Obj[2];
 	if ((evt.getObj1).isWall()) objects[0] = (Wall)evt.getObj1; //tobefixed
     }
-
-
-=======
 }
->>>>>>> a2de7889a08cbb2ccdefec3dc8e2dcb3f0f35c6d
