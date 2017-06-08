@@ -63,14 +63,13 @@ public class EventListener {
 	    }
 	}
 	//update values
+	//6/7/17
+	//I'm not sure why you don't want me to change the X or the Y values,
+	//but if those aren't changed here then there's nothing else to change
+	//in 1D elastic total collision.
     }
     
     private boolean isColliding(Event evt) {
 	return evt.distanceObj12() < 5.0f;
-    }
-
-    private Obj[] returnObj(Evt evt) {
-	Obj[] objects = new Obj[2];
-	if ((evt.getObj1).isWall()) objects[0] = (Wall)evt.getObj1; //tobefixed
     }
 }
