@@ -67,6 +67,9 @@ public class EventListener {
 	//I'm not sure why you don't want me to change the X or the Y values,
 	//but if those aren't changed here then there's nothing else to change
 	//in 1D elastic total collision.
+	
+	//I meant don't change the X & Y in the textbox that the user uses to 
+	//choose the initial position of the ball (the the simulation is restarted
     }
     
     private boolean isColliding(Event evt) {
