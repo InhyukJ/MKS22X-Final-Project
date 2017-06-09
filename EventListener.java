@@ -50,8 +50,7 @@ public class EventListener {
 	Obj Obj2 = pEvt.getObj2();
 	if (isColliding(pEvt)) {
 	    if (!Obj1.isWall() && !Obj2.isWall()) {
-		((Ball)Obj1).bounceB();
-		((Ball)Obj2).bounceB();
+		((Ball)Obj1).bounceB((Ball)Obj2);
 	    }
 	    else if (!Obj1.isWall()) {
 		if (!((Wall)Obj2).isHorizontal()) ((Ball)Obj1).bounceY();
@@ -62,6 +61,14 @@ public class EventListener {
 		else ((Ball)Obj2).bounceX();
 	    }
 	}
+	
+	if (!Obj1.isWall()) { //NEEDS TO BE MODIFIED FOR 2D
+	    ((Ball)Obj1).setX(((Ball)Obj1).getX() + (((Ball)Obj1).getVel()));
+	}
+	else if (!Obj2.isWall()) {
+	    ((Ball)Obj2).setX(((Ball)Obj2).getX() + (((Ball)Obj2).getVel()));
+	}
+	    
 	//update values
 	//6/7/17
 	//I'm not sure why you don't want me to change the X or the Y values,

@@ -27,8 +27,15 @@ public class Ball {
 	velDir *= -1;
     }
     
-    public void bounceB() {
+    public void bounceB(Ball other) {
 	velDir *= -1;
+	float otherM = other.getMass();
+	float M = getMass();
+	float newVel = (((M - otherM)/(M + otherM)) * getVel()) + (((2 * otherM)/(M + otherM)) * other.getVel());
+	setVel(newVel);
+
+	float newVel2 = (((otherM - M)/(M + otherM)) * other.getVel()) + (((2 * otherM)/(M + otherM)) * getVel());
+	other.setVel(newVel2);
     }
 
     //Getters and Setters
