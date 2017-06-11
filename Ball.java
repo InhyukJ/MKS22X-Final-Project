@@ -22,8 +22,7 @@ public class Ball {
     }
 
     public void bounceX() {
-	velDir = 180 - velDir;
-	if (velDir < 0) velDir += 360;
+	velDir = adjust(180 - velDir);
     }
 
     public void bounceY() {
@@ -31,14 +30,37 @@ public class Ball {
     }
     
     public void bounceB(Ball other, boolean elasticity) { //Elastic collision
-	velDir *= -1;
 	float otherM = other.getMass();
 	float M = getMass();
-	float newVel = (((M - otherM)/(M + otherM)) * getVel()) + (((2 * otherM)/(M + otherM)) * other.getVel());
-	setVel(newVel);
+	
+	if (elasticity) { //For both balls, velocity and final angles are same
+	    //calculate velocity
+	    float fVel = ((M * getVel()) + (otherM * other.getVel())) / (M + otherM);
+	    setVel(fVel);
+	    other.setVel(fVel);
 
-	float newVel2 = (((otherM - M)/(M + otherM)) * other.getVel()) + (((2 * otherM)/(M + otherM)) * getVel());
-	other.setVel(newVel2);
+	    if (M > otherM) other.setVelDir(getVelDir());
+	    else setVelDir(other.getVelDir());
+	}
+	else {
+	    float cDir = ((float)Math.toDegrees(Math.atan((double)((other.getY() - getY()) / (other.getX() - getX()))))); //velDir between the centers, in degrees
+	    float cDirO = 0.0f;
+	    if (getY() > other.getY()) {
+		cDirO = adjust(cDir + 180);
+	    }
+	    else {
+		cDirO = cDir;
+		cDir = adjust(cDir + 180);
+	    }
+	    setVelDir((cDir + getVelDir()) / 2);
+	    other.setVelDir((cDirO + other.getVelDir()) / 2);
+	    
+	    float newVel = (((M - otherM)/(M + otherM)) * getVel()) + (((2 * otherM)/(M + otherM)) * other.getVel());
+	    setVel(newVel);
+	    
+	    float newVel2 = (((otherM - M)/(M + otherM)) * other.getVel()) + (((2 * otherM)/(M + otherM)) * getVel());
+	    other.setVel(newVel2);
+	}
     }
 
     //Getters and Setters
@@ -52,14 +74,15 @@ public class Ball {
     public void setX(float x) {this.x = x;}
     public void setY(float y) {this.y = y;}
     public void setVel(float vel) {this.vel = vel;}
+    public void setVelDir(float velDir) {this.velDir = velDir;}
 
     public boolean isWall() {
 	return false;
     }
-    public boolean isHorizontal() {
-	return false;
-    }
-    public boolean isTopLeft() {
-	return false;
+
+    private float adjust(float theta) {
+	if (theta > 360) return theta - 360;
+	else if (theta < 0) return theta + 360;
+	else return theta;
     }
 }
