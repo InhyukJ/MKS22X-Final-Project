@@ -1,4 +1,4 @@
-public class Ball {
+public class Ball implements Obj{
     private float radius, x, y, vel, velDir, mass;
     private boolean elasticity;
     
