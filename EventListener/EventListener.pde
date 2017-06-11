@@ -14,12 +14,14 @@ class Simulator{
         objects.add(new Wall(true, false));
         objects.add(new Wall(false, true));
         objects.add(new Wall(false, false));
-        objects.add(new Ball(
+        objects.add(new Ball()); //will need access to arguments
         PQ = new PriorityQueue<Event>();
         
     }
     
-    ArrayList
+    ArrayList<Obj> getObjects(){
+        return objects;
+    }
     
     /*
       EventListener is basically doing this (for the repeating part) 
@@ -102,7 +104,7 @@ class Simulator{
 
 void setup(){
     Simulator simulator = new Simulator();
-    for(
+    //for( //loop through objects and display them //may want this to be in the looping funct updating visuals in general
 }
 
 void draw(){
