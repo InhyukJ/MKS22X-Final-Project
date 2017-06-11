@@ -26,9 +26,9 @@ class Simulator{
     /*
       EventListener is basically doing this (for the repeating part) 
       when the start/play button has been pressed:
-      Delay time - the minimum time between "frames"/updates. I think this will help in keeping the 
+      *Delay time - the minimum time between "frames"/updates. I think this will help in keeping the 
       animation consistent. Maybe the delay time can be controlled by a slider (then it will change
-      the simulation speed). Thedelay time is pretty small, since we want to keep the animation smooth
+      the simulation speed). The delay time is pretty small, since we want to keep the animation smooth
       - check if a collision has happened yet (ask PQ to reference the distance of the 
         root event
         - PQ.update()
@@ -65,7 +65,8 @@ class Simulator{
         Obj Obj2 = pEvt.getObj2();
         if (isColliding(pEvt)) {
             if (!Obj1.isWall() && !Obj2.isWall()) {
-                ((Ball)Obj1).bounceB((Ball)Obj2, true); //just put a placeholder true for now
+                ((Ball)Obj1).bounceB((Ball)Obj2, true); //just put a placeholder true for now. remember 
+                //to update this statement based on the change you made to Ball.java
             }
             else if (!Obj1.isWall()) {
                 if (!((Wall)Obj2).isHorizontal()) ((Ball)Obj1).bounceY();
@@ -105,13 +106,19 @@ class Simulator{
       return evt.distanceObj12() < 5.0f;
    }
    
-   void redraw(){ // to visually update screen. called every *insertDelayTime i.e. called everytime the simulation loops
-       /*
-         translate circles a very small amt and resize if needed
-       */
+   void initialDraw(){ //will display controlP5 stuff and walls
+     
    }
    
-   void simLoop(){ // the loop that puts all the helper functs together. should be called in draw()
+   void reDraw(){ // to visually update screen. called every *insertDelayTime i.e. called everytime the simulation loops
+       /*
+         translate circles a very small amt and resize if needed
+         will probably want to use a for loop, disregarding Walls
+       */
+       
+   }
+   
+   void simLoop(boolean ){ // the loop that puts all the helper functs together. should be called in draw()
      
    }
 }
@@ -122,7 +129,7 @@ ControlP5 cp5;
 void setup(){
     size(1000, 600);
     Simulator simulator = new Simulator();
-    //for( //loop through objects and display them //may want this to be in the looping funct updating visuals in general
+    initialDraw();
 }
 
 void draw(){
