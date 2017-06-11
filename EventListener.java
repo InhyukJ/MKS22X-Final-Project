@@ -2,10 +2,10 @@ import java.util.*;
 import java.lang.Thread;
 
 public class EventListener {
-    private PriorityQueue<Event> PQ;
+    private PriorityQueueEvent PQ;
     
     public EventListener() {
-	PQ = new PriorityQueue<Event>();
+	PQ = new PriorityQueueEvent();
     }
 
     /*
