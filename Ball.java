@@ -1,13 +1,15 @@
 public class Ball {
     private float radius, x, y, vel, velDir, mass;
+    private boolean elasticity;
     
-    public Ball(float x, float y, float radius, float mass, float vel, float velDir) {
+    public Ball(float x, float y, float radius, float mass, float vel, float velDir, boolean elasticity) {
 	this.x = x;
 	this.y = y;
 	this.radius = radius;
 	this.mass = mass;
 	this.vel = vel;
-	this.velDir = velDir; //theta
+	this.velDir = velDir; //theta, degrees
+	this.elasticity = elasticity;
     }
     
     public void addXY(float X, float Y) {
@@ -20,14 +22,15 @@ public class Ball {
     }
 
     public void bounceX() {
-	velDir *= -1;
+	velDir = 180 - velDir;
+	if (velDir < 0) velDir += 360;
     }
 
     public void bounceY() {
-	velDir *= -1;
+	velDir = 360 - velDir;
     }
     
-    public void bounceB(Ball other) {
+    public void bounceB(Ball other, boolean elasticity) { //Elastic collision
 	velDir *= -1;
 	float otherM = other.getMass();
 	float M = getMass();
