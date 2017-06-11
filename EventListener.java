@@ -50,7 +50,7 @@ public class EventListener {
 	Obj Obj2 = pEvt.getObj2();
 	if (isColliding(pEvt)) {
 	    if (!Obj1.isWall() && !Obj2.isWall()) {
-		((Ball)Obj1).bounceB((Ball)Obj2);
+		((Ball)Obj1).bounceB((Ball)Obj2, false);
 	    }
 	    else if (!Obj1.isWall()) {
 		if (!((Wall)Obj2).isHorizontal()) ((Ball)Obj1).bounceY();
