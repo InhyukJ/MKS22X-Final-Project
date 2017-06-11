@@ -68,7 +68,9 @@ public class EventListener {
 	else if (!Obj2.isWall()) {
 	    ((Ball)Obj2).setX(((Ball)Obj2).getX() + (((Ball)Obj2).getVel()));
 	}
-	    
+
+	PQ.update();
+	
 	//update values
 	//6/7/17
 	//I'm not sure why you don't want me to change the X or the Y values,
