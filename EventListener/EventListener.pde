@@ -106,8 +106,104 @@ class Simulator{
       return evt.distanceObj12() < 5.0f;
    }
    
+   
+ControlP5 cp5;
+Accordion accordion;
+
+
+void setup(){
+    size(1000, 600);
+    Simulator simulator = new Simulator();
+    initialDraw();
+    
+}
+   
    void initialDraw(){ //will display controlP5 stuff and walls
+      cp5 = new ControlP5(this);
+      
+      //group 1, contains
+      Group g1 = cp5.addGroup("1D vs 2D")
+                    .setBackgroundColor(color(0, 64)) //placehold colors
+                    .setBackgroundHeight(75)
+                    ;
+                    
+     cp5.addRadioButton("radio")
+        .setPosition(10, 30)
+        .setItemWidth(20)
+        .setItemHeight(20)
+        .addItem("1D", 1)
+        .addItem("2D", 2)
+        .setColorLabel(color(225)) //placehold color
+        .activate(1)
+        .moveTo(g1)
+        ;
+        
+     Group g2 = cp5.addGroup("Elasticity")
+                   .setBackgroundColor(color(0, 64)) //placehold colors
+                   .setBackgroundHeight(75)
+                   ;
+                   
+     cp5.addRadioButton("radio")
+       .setPosition(10, 30)
+       .setItemWidth(20)
+       .setItemHeight(20)
+       .addItem("Elastic Collision", 1)
+       .addItem("Inelastic Collision", 2)
+       .setColorLabel(color(225)) //placehold color
+       .activate(1)
+       .moveTo(g2)
+       ;
+       
+     Group g3 = cp5.addGroup("Size")
+                   .setBackgroundColor(color(0, 64)) //ph colors
+                   .setBackgroundHeight(100)
+                   ;
+                   
+     cp5.addSlider("Ball 1")
+        .setPosition(20, 20)
+        .setSize(100, 20)
+        .setRange(1, 50)
+        .setValue(25)
+        .moveTo(g3)
+        ;
+        
+     cp5.addSlider("Ball 2")
+        .setPosition(20, 60)
+        .setSize(100, 20)
+        .setRange(1, 50)
+        .setValue(25)
+        .moveTo(g3)
+        ;
+        
+     Group g4 = cp5.addGroup("Speed")
+                   .setBackgroundColor(color(0, 64))
+                   .setBackgroundHeight(100);
      
+     cp5.addSlider("Ball 1")
+        .setPosition(20, 20)
+        .setSize(100, 20)
+        .setRange(1, 20)
+        .setValue(10)
+        .moveTo(g4)
+        ;
+        
+     cp5.addSlider("Ball 2")
+        .setPosition(20, 60)
+        .setSize(100, 20)
+        .setRange(1, 20)
+        .setValue(10)
+        .moveTo(g4)
+        ;
+ 
+     accordion = cp5.addAccordian("acc")
+                    .setPosition(20, 20)
+                    .setWidth(150)
+                    .addItem(g1)
+                    .addItem(g2)
+                    .addItem(g3)
+                    ;
+    
+     accordion.open(0, 1, 2, 3);
    }
    
    void reDraw(){ // to visually update screen. called every *insertDelayTime i.e. called everytime the simulation loops
@@ -118,18 +214,9 @@ class Simulator{
        
    }
    
-   void simLoop(boolean ){ // the loop that puts all the helper functs together. should be called in draw()
+   void simLoop(boolean loop){ // the loop that puts all the helper functs together. should be called in draw()
      
    }
-}
-
-
-ControlP5 cp5;
-
-void setup(){
-    size(1000, 600);
-    Simulator simulator = new Simulator();
-    initialDraw();
 }
 
 void draw(){
