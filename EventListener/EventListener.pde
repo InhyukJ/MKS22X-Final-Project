@@ -108,7 +108,44 @@ class Simulator{
           }
        }
        //draw labels for input areas (string)
-       cp5 //create 
+       PFont font = createFont("Arial", 24, true);
+       //fill(0);
+       text("Ball 1", 30, 430);
+       text("Ball 2", 30, 500);
+       text("Mass (kg)", 80, 400);
+       text("Position (m)", 160, 400);
+       text("Velocity (m/s)", 240, 400);
+       cp5.addButton("Restart") //create Restart button
+          .setPosition(690, 30)
+          .setValue(0);
+       cp5.addToggle("Play") //create Play toggle
+          .setPosition(770, 30)
+          .setValue(false)
+          .setMode(ControlP5.SWITCH);
+       cp5.addSlider("Simulation Speed") //create sim spd slider
+          .setPosition(820, 30)
+          .setRange(0, 5);
+       //cp5.addToggle("") //add in extra options later
+          //.setPosition(300, 500)
+          //.setValue(false);
+       cp5.addTextfield("m1")
+          .setPosition(80, 410)
+          .setSize(60, 20);
+       cp5.addTextfield("m2")
+          .setPosition(80, 480)
+          .setSize(60, 20);
+       cp5.addTextfield("x1")
+          .setPosition(160, 410)
+          .setSize(60, 20);
+       cp5.addTextfield("x2")
+          .setPosition(160, 480)
+          .setSize(60, 20);
+       cp5.addTextfield("v1")
+          .setPosition(240, 410)
+          .setSize(60, 20);
+       cp5.addTextfield("v2")
+          .setPosition(240, 480)
+          .setSize(60, 20);
    }
    
    void reDraw(){ // to visually update screen. called every *insertDelayTime i.e. called everytime the simulation loops
@@ -128,6 +165,7 @@ class Simulator{
 
 void setup(){
     size(1000, 600);
+    background(0);
     Simulator simulator = new Simulator(new ControlP5(this));
     simulator.initialDraw();
 }
