@@ -6,17 +6,28 @@ import java.lang.Thread;
 class Simulator{
     PriorityQueueEvent PQ;
     ArrayList<Obj> objects;
+    ControlP5 cp5;
+    //may need to add variables controlled by the cp5 stuff
     
-    Simulator() {
+    Simulator(ControlP5 cp5) {
         objects = new ArrayList<Obj>();
         objects.add(new Wall(true, true));
         objects.add(new Wall(true, false));
         objects.add(new Wall(false, true));
         objects.add(new Wall(false, false));
-        objects.add(new Ball(300, 100, 25, 25, 5, 0, true)); //will need access to arguments. just putting in dummy arguments
-        // first time, will create Balls, subsequent times, will change values
+        objects.add(new Ball(430, 200, 25, 25, 5, 180, true)); //based on default values
+        objects.add(new Ball(230, 200, 40, 40, 10, 0, true)); //based on default values
         PQ = new PriorityQueueEvent();
-        
+        //based on ArrayList<Obj> objects, will create events and add them (or will it just be updated with the PQ.update?  
+        //no... that only rearranges existing events)
+        for(int i = 0; i < objects.size(); i++){
+            for(int index = i + 1; index < objects.size(); index++){
+                if(!(objects.get(i).isWall() && objects.get(index).isWall())){
+                    PQ.add(new Event(objects.get(i), objects.get(index)));
+                }
+            }
+        }
+        this.cp5 = cp5;
     }
     
     ArrayList<Obj> getObjects(){
@@ -43,15 +54,6 @@ class Simulator{
       Pause freezes the animation & calculations w/o program closing, so perhaps the 
       update/run function has a boolean parameter, which, if set to false, just waits for 
       the duration of the delay time instead of updating & delaying as usual
-      
-      Useful/Likely-To-Be-Used ControlP5 Classes:
-      - Button
-      - RadioButton
-      - Slider
-      - TextField
-      - Toggle
-      
-      need restart() to reset values and display
      */
      
     void update() {
@@ -90,15 +92,6 @@ class Simulator{
         }
 
         PQ.update();
-  
-        //update values
-        //6/7/17
-        //I'm not sure why you don't want me to change the X or the Y values,
-        //but if those aren't changed here then there's nothing else to change
-        //in 1D elastic total collision.
-        
-        //I meant don't change the X & Y in the textbox that the user uses to 
-        //choose the initial position of the ball (the the simulation is restarted
     }
     
    boolean isColliding(Event evt) { //so will check the root event i.e. event with smallest distanceObj12()
@@ -106,8 +99,16 @@ class Simulator{
       return evt.distanceObj12() < 5.0f;
    }
    
-   void initialDraw(){ //will display controlP5 stuff and walls
-     
+   void initialDraw(){ //will display walls, then create controlP5 stuff
+       for(Obj object : objects){
+          if(object.isWall()){ //draw walls (rect)
+              rect(((Wall)object).getX(), ((Wall)object).getY(), ((Wall)object).getWidth(), ((Wall)object).getHeight());
+          }else{ //draw balls (ellipse)
+              ellipse(((Ball)object).getX(), ((Ball)object).getY(), ((Ball)object).getRadius(), ((Ball)object).getRadius());
+          }
+       }
+       //draw labels for input areas (string)
+       cp5 //create 
    }
    
    void reDraw(){ // to visually update screen. called every *insertDelayTime i.e. called everytime the simulation loops
@@ -118,18 +119,17 @@ class Simulator{
        
    }
    
-   void simLoop(boolean ){ // the loop that puts all the helper functs together. should be called in draw()
-     
+   void simLoop(boolean paused){ // the loop that puts all the helper functs together. should be called in draw()
+       redraw();
    }
 }
 
 
-ControlP5 cp5;
 
 void setup(){
     size(1000, 600);
-    Simulator simulator = new Simulator();
-    initialDraw();
+    Simulator simulator = new Simulator(new ControlP5(this));
+    simulator.initialDraw();
 }
 
 void draw(){
