@@ -8,6 +8,14 @@ class Simulator{
     ArrayList<Obj> objects;
     ControlP5 cp5;
     //may need to add variables controlled by the cp5 stuff
+    boolean play;
+    float simSpd;
+    float mass1;
+    float mass2;
+    float iPosX1;
+    float iPosX2;
+    float spd1;
+    float spd2;
     
     Simulator(ControlP5 cp5) {
         objects = new ArrayList<Obj>();
@@ -15,8 +23,8 @@ class Simulator{
         objects.add(new Wall(true, false));
         objects.add(new Wall(false, true));
         objects.add(new Wall(false, false));
-        objects.add(new Ball(430, 200, 25, 25, 5, 180, true)); //based on default values
-        objects.add(new Ball(230, 200, 40, 40, 10, 0, true)); //based on default values
+        objects.add(new Ball(230, 200, 25, 25, 5, 180, true)); //based on default values
+        objects.add(new Ball(430, 200, 40, 40, 10, 0, true)); //based on default values
         PQ = new PriorityQueueEvent();
         //based on ArrayList<Obj> objects, will create events and add them (or will it just be updated with the PQ.update?  
         //no... that only rearranges existing events)
@@ -28,6 +36,14 @@ class Simulator{
             }
         }
         this.cp5 = cp5;
+        play = false;
+        simSpd = 1;
+        mass1 = 25;
+        mass2 = 25;
+        iPosX1 = 230;
+        iPosX2 = 430;
+        spd1 = 5;
+        spd2 = 10;
     }
     
     ArrayList<Obj> getObjects(){
@@ -159,6 +175,36 @@ class Simulator{
    void simLoop(boolean paused){ // the loop that puts all the helper functs together. should be called in draw()
        redraw();
    }
+   
+   void restarted(){
+       //cp5. //change toggle
+       ((Ball)objects.get(4)).setX(iPosX1);
+       ((Ball)objects.get(5)).setX(iPosX2);
+   }
+   
+   boolean getPlay(){return play;}
+   float getSimSpd(){return simSpd;}
+   float getMass1(){return mass1;}
+   float getMass2(){return mass2;}
+   float getIPosX1(){return iPosX1;}
+   float getIPosX2(){return iPosX2;}
+   float getSpd1(){return spd1;}
+   float getSpd2(){return spd2;}
+   
+   void setPlay(boolean play){this.play = play;}
+   //void setSimSpd(float
+}
+
+
+public void Restart(int theValue){
+    //println("pressed");
+    //cp5. //set play to false
+    //play = false;
+    
+}
+
+public void m1(String theText){
+    
 }
 
 
