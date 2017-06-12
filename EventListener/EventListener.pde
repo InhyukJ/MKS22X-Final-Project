@@ -1,6 +1,6 @@
 import controlP5.*;
 import java.util.*;
-import java.lang.Thread;
+import java.lang.*;
 
 
 class Simulator{
@@ -23,8 +23,20 @@ class Simulator{
         objects.add(new Wall(true, false));
         objects.add(new Wall(false, true));
         objects.add(new Wall(false, false));
-        objects.add(new Ball(230, 200, 25, 25, 5, 180, true)); //based on default values
-        objects.add(new Ball(430, 200, 40, 40, 10, 0, true)); //based on default values
+        
+        this.cp5 = cp5;
+        play = false;
+        simSpd = 1;
+        mass1 = cp5.getController("m1").getValue();
+        mass2 = cp5.getController("m2").getValue();
+        iPosX1 = cp5.getController("x1").getValue();
+        iPosX2 = cp5.getController("x2").getValue();
+        spd1 = cp5.getController("v1").getValue();
+        spd2 = cp5.getController("v2").getValue();
+        
+        objects.add(new Ball(iPosX1, 200, mass1, mass1, spd1, 180, true)); //based on default values
+        objects.add(new Ball(iPosX2, 200, mass2, mass2, spd2, 0, true)); //based on default values
+        //should take in values from ControlP5
         PQ = new PriorityQueueEvent();
         //based on ArrayList<Obj> objects, will create events and add them (or will it just be updated with the PQ.update?  
         //no... that only rearranges existing events)
@@ -35,15 +47,7 @@ class Simulator{
                 }
             }
         }
-        this.cp5 = cp5;
-        play = false;
-        simSpd = 1;
-        mass1 = 25;
-        mass2 = 25;
-        iPosX1 = 230;
-        iPosX2 = 430;
-        spd1 = 5;
-        spd2 = 10;
+        initialDraw();
     }
     
     ArrayList<Obj> getObjects(){
@@ -146,22 +150,28 @@ class Simulator{
           //.setValue(false);
        cp5.addTextfield("m1")
           .setPosition(80, 410)
-          .setSize(60, 20);
+          .setSize(60, 20)
+          .setText("25");
        cp5.addTextfield("m2")
           .setPosition(80, 480)
-          .setSize(60, 20);
+          .setSize(60, 20)
+          .setText("25");
        cp5.addTextfield("x1")
           .setPosition(160, 410)
-          .setSize(60, 20);
+          .setSize(60, 20)
+          .setText("230");
        cp5.addTextfield("x2")
           .setPosition(160, 480)
-          .setSize(60, 20);
+          .setSize(60, 20)
+          .setText("430");
        cp5.addTextfield("v1")
           .setPosition(240, 410)
-          .setSize(60, 20);
+          .setSize(60, 20)
+          .setText("5");
        cp5.addTextfield("v2")
           .setPosition(240, 480)
-          .setSize(60, 20);
+          .setSize(60, 20)
+          .setText("10");
    }
    
    void reDraw(){ // to visually update screen. called every *insertDelayTime i.e. called everytime the simulation loops
