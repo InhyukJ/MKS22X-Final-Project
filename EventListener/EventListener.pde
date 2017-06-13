@@ -25,6 +25,8 @@ class Simulator{
         objects.add(new Wall(false, false));
         
         this.cp5 = cp5;
+        
+        initialDraw();
         play = false;
         simSpd = 1;
         mass1 = cp5.getController("m1").getValue();
@@ -47,7 +49,6 @@ class Simulator{
                 }
             }
         }
-        initialDraw();
     }
     
     ArrayList<Obj> getObjects(){
@@ -119,106 +120,6 @@ class Simulator{
       return evt.distanceObj12() < 5.0f;
    }
    
-<<<<<<< HEAD
-   
-ControlP5 cp5;
-Accordion accordion;
-
-
-void setup(){
-    size(1000, 600);
-    Simulator simulator = new Simulator();
-    initialDraw();
-    
-}
-   
-   void initialDraw(){ //will display controlP5 stuff and walls
-      cp5 = new ControlP5(this);
-      
-      //group 1, contains
-      Group g1 = cp5.addGroup("1D vs 2D")
-                    .setBackgroundColor(color(0, 64)) //placehold colors
-                    .setBackgroundHeight(75)
-                    ;
-                    
-     cp5.addRadioButton("radio")
-        .setPosition(10, 30)
-        .setItemWidth(20)
-        .setItemHeight(20)
-        .addItem("1D", 1)
-        .addItem("2D", 2)
-        .setColorLabel(color(225)) //placehold color
-        .activate(1)
-        .moveTo(g1)
-        ;
-        
-     Group g2 = cp5.addGroup("Elasticity")
-                   .setBackgroundColor(color(0, 64)) //placehold colors
-                   .setBackgroundHeight(75)
-                   ;
-                   
-     cp5.addRadioButton("radio")
-       .setPosition(10, 30)
-       .setItemWidth(20)
-       .setItemHeight(20)
-       .addItem("Elastic Collision", 1)
-       .addItem("Inelastic Collision", 2)
-       .setColorLabel(color(225)) //placehold color
-       .activate(1)
-       .moveTo(g2)
-       ;
-       
-     Group g3 = cp5.addGroup("Size")
-                   .setBackgroundColor(color(0, 64)) //ph colors
-                   .setBackgroundHeight(100)
-                   ;
-                   
-     cp5.addSlider("Ball 1")
-        .setPosition(20, 20)
-        .setSize(100, 20)
-        .setRange(1, 50)
-        .setValue(25)
-        .moveTo(g3)
-        ;
-        
-     cp5.addSlider("Ball 2")
-        .setPosition(20, 60)
-        .setSize(100, 20)
-        .setRange(1, 50)
-        .setValue(25)
-        .moveTo(g3)
-        ;
-        
-     Group g4 = cp5.addGroup("Speed")
-                   .setBackgroundColor(color(0, 64))
-                   .setBackgroundHeight(100);
-     
-     cp5.addSlider("Ball 1")
-        .setPosition(20, 20)
-        .setSize(100, 20)
-        .setRange(1, 20)
-        .setValue(10)
-        .moveTo(g4)
-        ;
-        
-     cp5.addSlider("Ball 2")
-        .setPosition(20, 60)
-        .setSize(100, 20)
-        .setRange(1, 20)
-        .setValue(10)
-        .moveTo(g4)
-        ;
- 
-     accordion = cp5.addAccordian("acc")
-                    .setPosition(20, 20)
-                    .setWidth(150)
-                    .addItem(g1)
-                    .addItem(g2)
-                    .addItem(g3)
-                    ;
-    
-     accordion.open(0, 1, 2, 3);
-=======
    void initialDraw(){ //will display walls, then create controlP5 stuff
        for(Obj object : objects){
           if(object.isWall()){ //draw walls (rect)
@@ -251,28 +152,33 @@ void setup(){
        cp5.addTextfield("m1")
           .setPosition(80, 410)
           .setSize(60, 20)
-          .setText("25");
+          .setText("25")
+          .setValue(25);
        cp5.addTextfield("m2")
           .setPosition(80, 480)
           .setSize(60, 20)
-          .setText("25");
+          .setText("25")
+          .setValue(25);
        cp5.addTextfield("x1")
           .setPosition(160, 410)
           .setSize(60, 20)
-          .setText("230");
+          .setText("230")
+          .setValue(230);
        cp5.addTextfield("x2")
           .setPosition(160, 480)
           .setSize(60, 20)
-          .setText("430");
+          .setText("430")
+          .setValue(430);
        cp5.addTextfield("v1")
           .setPosition(240, 410)
           .setSize(60, 20)
-          .setText("5");
+          .setText("5")
+          .setValue(5);
        cp5.addTextfield("v2")
           .setPosition(240, 480)
           .setSize(60, 20)
-          .setText("10");
->>>>>>> 106e9b48628f8bcd96bd8c48ad970af3a4d7880a
+          .setText("10")
+          .setValue(10);
    }
    
    void reDraw(){ // to visually update screen. called every *insertDelayTime i.e. called everytime the simulation loops
@@ -283,10 +189,6 @@ void setup(){
        
    }
    
-<<<<<<< HEAD
-   void simLoop(boolean loop){ // the loop that puts all the helper functs together. should be called in draw()
-     
-=======
    void simLoop(boolean paused){ // the loop that puts all the helper functs together. should be called in draw()
        redraw();
    }
@@ -295,7 +197,6 @@ void setup(){
        //cp5. //change toggle
        ((Ball)objects.get(4)).setX(iPosX1);
        ((Ball)objects.get(5)).setX(iPosX2);
->>>>>>> 106e9b48628f8bcd96bd8c48ad970af3a4d7880a
    }
    
    boolean getPlay(){return play;}
@@ -323,18 +224,15 @@ public void m1(String theText){
     
 }
 
-<<<<<<< HEAD
-=======
 
 
 void setup(){
     size(1000, 600);
     background(0);
     Simulator simulator = new Simulator(new ControlP5(this));
-    //simulator.initialDraw();
+    simulator.initialDraw();
 }
 
->>>>>>> 106e9b48628f8bcd96bd8c48ad970af3a4d7880a
 void draw(){
   
 }
