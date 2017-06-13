@@ -1,22 +1,53 @@
 import controlP5.*;
 import java.util.*;
-import java.lang.Thread;
+import java.lang.*;
 
 
 class Simulator{
     PriorityQueueEvent PQ;
     ArrayList<Obj> objects;
+    ControlP5 cp5;
+    //may need to add variables controlled by the cp5 stuff
+    boolean play;
+    float simSpd;
+    float mass1;
+    float mass2;
+    float iPosX1;
+    float iPosX2;
+    float spd1;
+    float spd2;
     
-    Simulator() {
+    Simulator(ControlP5 cp5) {
         objects = new ArrayList<Obj>();
         objects.add(new Wall(true, true));
         objects.add(new Wall(true, false));
         objects.add(new Wall(false, true));
         objects.add(new Wall(false, false));
-        objects.add(new Ball(300, 100, 25, 25, 5, 0, true)); //will need access to arguments. just putting in dummy arguments
-        // first time, will create Balls, subsequent times, will change values
-        PQ = new PriorityQueueEvent();
         
+        this.cp5 = cp5;
+        play = false;
+        simSpd = 1;
+        mass1 = cp5.getController("m1").getValue();
+        mass2 = cp5.getController("m2").getValue();
+        iPosX1 = cp5.getController("x1").getValue();
+        iPosX2 = cp5.getController("x2").getValue();
+        spd1 = cp5.getController("v1").getValue();
+        spd2 = cp5.getController("v2").getValue();
+        
+        objects.add(new Ball(iPosX1, 200, mass1, mass1, spd1, 180, true)); //based on default values
+        objects.add(new Ball(iPosX2, 200, mass2, mass2, spd2, 0, true)); //based on default values
+        //should take in values from ControlP5
+        PQ = new PriorityQueueEvent();
+        //based on ArrayList<Obj> objects, will create events and add them (or will it just be updated with the PQ.update?  
+        //no... that only rearranges existing events)
+        for(int i = 0; i < objects.size(); i++){
+            for(int index = i + 1; index < objects.size(); index++){
+                if(!(objects.get(i).isWall() && objects.get(index).isWall())){
+                    PQ.add(new Event(objects.get(i), objects.get(index)));
+                }
+            }
+        }
+        initialDraw();
     }
     
     ArrayList<Obj> getObjects(){
@@ -43,15 +74,6 @@ class Simulator{
       Pause freezes the animation & calculations w/o program closing, so perhaps the 
       update/run function has a boolean parameter, which, if set to false, just waits for 
       the duration of the delay time instead of updating & delaying as usual
-      
-      Useful/Likely-To-Be-Used ControlP5 Classes:
-      - Button
-      - RadioButton
-      - Slider
-      - TextField
-      - Toggle
-      
-      need restart() to reset values and display
      */
      
     void update() {
@@ -90,15 +112,6 @@ class Simulator{
         }
 
         PQ.update();
-  
-        //update values
-        //6/7/17
-        //I'm not sure why you don't want me to change the X or the Y values,
-        //but if those aren't changed here then there's nothing else to change
-        //in 1D elastic total collision.
-        
-        //I meant don't change the X & Y in the textbox that the user uses to 
-        //choose the initial position of the ball (the the simulation is restarted
     }
     
    boolean isColliding(Event evt) { //so will check the root event i.e. event with smallest distanceObj12()
@@ -106,104 +119,59 @@ class Simulator{
       return evt.distanceObj12() < 5.0f;
    }
    
-   
-ControlP5 cp5;
-Accordion accordion;
-
-
-void setup(){
-    size(1000, 600);
-    Simulator simulator = new Simulator();
-    initialDraw();
-    
-}
-   
-   void initialDraw(){ //will display controlP5 stuff and walls
-      cp5 = new ControlP5(this);
-      
-      //group 1, contains
-      Group g1 = cp5.addGroup("1D vs 2D")
-                    .setBackgroundColor(color(0, 64)) //placehold colors
-                    .setBackgroundHeight(75)
-                    ;
-                    
-     cp5.addRadioButton("radio")
-        .setPosition(10, 30)
-        .setItemWidth(20)
-        .setItemHeight(20)
-        .addItem("1D", 1)
-        .addItem("2D", 2)
-        .setColorLabel(color(225)) //placehold color
-        .activate(1)
-        .moveTo(g1)
-        ;
-        
-     Group g2 = cp5.addGroup("Elasticity")
-                   .setBackgroundColor(color(0, 64)) //placehold colors
-                   .setBackgroundHeight(75)
-                   ;
-                   
-     cp5.addRadioButton("radio")
-       .setPosition(10, 30)
-       .setItemWidth(20)
-       .setItemHeight(20)
-       .addItem("Elastic Collision", 1)
-       .addItem("Inelastic Collision", 2)
-       .setColorLabel(color(225)) //placehold color
-       .activate(1)
-       .moveTo(g2)
-       ;
-       
-     Group g3 = cp5.addGroup("Size")
-                   .setBackgroundColor(color(0, 64)) //ph colors
-                   .setBackgroundHeight(100)
-                   ;
-                   
-     cp5.addSlider("Ball 1")
-        .setPosition(20, 20)
-        .setSize(100, 20)
-        .setRange(1, 50)
-        .setValue(25)
-        .moveTo(g3)
-        ;
-        
-     cp5.addSlider("Ball 2")
-        .setPosition(20, 60)
-        .setSize(100, 20)
-        .setRange(1, 50)
-        .setValue(25)
-        .moveTo(g3)
-        ;
-        
-     Group g4 = cp5.addGroup("Speed")
-                   .setBackgroundColor(color(0, 64))
-                   .setBackgroundHeight(100);
-     
-     cp5.addSlider("Ball 1")
-        .setPosition(20, 20)
-        .setSize(100, 20)
-        .setRange(1, 20)
-        .setValue(10)
-        .moveTo(g4)
-        ;
-        
-     cp5.addSlider("Ball 2")
-        .setPosition(20, 60)
-        .setSize(100, 20)
-        .setRange(1, 20)
-        .setValue(10)
-        .moveTo(g4)
-        ;
- 
-     accordion = cp5.addAccordian("acc")
-                    .setPosition(20, 20)
-                    .setWidth(150)
-                    .addItem(g1)
-                    .addItem(g2)
-                    .addItem(g3)
-                    ;
-    
-     accordion.open(0, 1, 2, 3);
+   void initialDraw(){ //will display walls, then create controlP5 stuff
+       for(Obj object : objects){
+          if(object.isWall()){ //draw walls (rect)
+              rect(((Wall)object).getX(), ((Wall)object).getY(), ((Wall)object).getWidth(), ((Wall)object).getHeight());
+          }else{ //draw balls (ellipse)
+              ellipse(((Ball)object).getX(), ((Ball)object).getY(), ((Ball)object).getRadius(), ((Ball)object).getRadius());
+          }
+       }
+       //draw labels for input areas (string)
+       PFont font = createFont("Arial", 24, true);
+       //fill(0);
+       text("Ball 1", 30, 430);
+       text("Ball 2", 30, 500);
+       text("Mass (kg)", 80, 400);
+       text("Position (m)", 160, 400);
+       text("Velocity (m/s)", 240, 400);
+       cp5.addButton("Restart") //create Restart button
+          .setPosition(690, 30)
+          .setValue(0);
+       cp5.addToggle("Play") //create Play toggle
+          .setPosition(770, 30)
+          .setValue(false)
+          .setMode(ControlP5.SWITCH);
+       cp5.addSlider("Simulation Speed") //create sim spd slider
+          .setPosition(820, 30)
+          .setRange(0, 5);
+       //cp5.addToggle("") //add in extra options later
+          //.setPosition(300, 500)
+          //.setValue(false);
+       cp5.addTextfield("m1")
+          .setPosition(80, 410)
+          .setSize(60, 20)
+          .setText("25");
+       cp5.addTextfield("m2")
+          .setPosition(80, 480)
+          .setSize(60, 20)
+          .setText("25");
+       cp5.addTextfield("x1")
+          .setPosition(160, 410)
+          .setSize(60, 20)
+          .setText("230");
+       cp5.addTextfield("x2")
+          .setPosition(160, 480)
+          .setSize(60, 20)
+          .setText("430");
+       cp5.addTextfield("v1")
+          .setPosition(240, 410)
+          .setSize(60, 20)
+          .setText("5");
+       cp5.addTextfield("v2")
+          .setPosition(240, 480)
+          .setSize(60, 20)
+          .setText("10");
    }
    
    void reDraw(){ // to visually update screen. called every *insertDelayTime i.e. called everytime the simulation loops
@@ -214,9 +182,48 @@ void setup(){
        
    }
    
-   void simLoop(boolean loop){ // the loop that puts all the helper functs together. should be called in draw()
-     
+   void simLoop(boolean paused){ // the loop that puts all the helper functs together. should be called in draw()
+       redraw();
    }
+   
+   void restarted(){
+       //cp5. //change toggle
+       ((Ball)objects.get(4)).setX(iPosX1);
+       ((Ball)objects.get(5)).setX(iPosX2);
+   }
+   
+   boolean getPlay(){return play;}
+   float getSimSpd(){return simSpd;}
+   float getMass1(){return mass1;}
+   float getMass2(){return mass2;}
+   float getIPosX1(){return iPosX1;}
+   float getIPosX2(){return iPosX2;}
+   float getSpd1(){return spd1;}
+   float getSpd2(){return spd2;}
+   
+   void setPlay(boolean play){this.play = play;}
+   //void setSimSpd(float
+}
+
+
+public void Restart(int theValue){
+    //println("pressed");
+    //cp5. //set play to false
+    //play = false;
+    
+}
+
+public void m1(String theText){
+    
+}
+
+
+
+void setup(){
+    size(1000, 600);
+    background(0);
+    Simulator simulator = new Simulator(new ControlP5(this));
+    //simulator.initialDraw();
 }
 
 void draw(){
