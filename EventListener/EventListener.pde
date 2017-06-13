@@ -7,7 +7,6 @@ class Simulator{
     PriorityQueueEvent PQ;
     ArrayList<Obj> objects;
     ControlP5 cp5;
-    //may need to add variables controlled by the cp5 stuff
     boolean play;
     float simSpd;
     float mass1;
@@ -25,6 +24,7 @@ class Simulator{
         objects.add(new Wall(false, false));
         
         this.cp5 = cp5;
+        initialDrawCP5();
         play = false;
         simSpd = 1;
         mass1 = cp5.getController("m1").getValue();
@@ -119,22 +119,7 @@ class Simulator{
       return evt.distanceObj12() < 5.0f;
    }
    
-   void initialDraw(){ //will display walls, then create controlP5 stuff
-       for(Obj object : objects){
-          if(object.isWall()){ //draw walls (rect)
-              rect(((Wall)object).getX(), ((Wall)object).getY(), ((Wall)object).getWidth(), ((Wall)object).getHeight());
-          }else{ //draw balls (ellipse)
-              ellipse(((Ball)object).getX(), ((Ball)object).getY(), ((Ball)object).getRadius(), ((Ball)object).getRadius());
-          }
-       }
-       //draw labels for input areas (string)
-       PFont font = createFont("Arial", 24, true);
-       //fill(0);
-       text("Ball 1", 30, 430);
-       text("Ball 2", 30, 500);
-       text("Mass (kg)", 80, 400);
-       text("Position (m)", 160, 400);
-       text("Velocity (m/s)", 240, 400);
+   void initialDrawCP5(){ //will create controlP5 stuff
        cp5.addButton("Restart") //create Restart button
           .setPosition(690, 30)
           .setValue(0);
@@ -172,6 +157,24 @@ class Simulator{
           .setPosition(240, 480)
           .setSize(60, 20)
           .setText("10");
+   }
+   
+   void initialDraw(){ //will display walls
+       for(Obj object : objects){
+          if(object.isWall()){ //draw walls (rect)
+              rect(((Wall)object).getX(), ((Wall)object).getY(), ((Wall)object).getWidth(), ((Wall)object).getHeight());
+          }else{ //draw balls (ellipse)
+              ellipse(((Ball)object).getX(), ((Ball)object).getY(), ((Ball)object).getRadius(), ((Ball)object).getRadius());
+          }
+       }
+       //draw labels for input areas (string)
+       PFont font = createFont("Arial", 24, true);
+       //fill(0);
+       text("Ball 1", 30, 430);
+       text("Ball 2", 30, 500);
+       text("Mass (kg)", 80, 400);
+       text("Position (m)", 160, 400);
+       text("Velocity (m/s)", 240, 400);
    }
    
    void reDraw(){ // to visually update screen. called every *insertDelayTime i.e. called everytime the simulation loops
