@@ -220,12 +220,12 @@ public void m1(String theText){
     
 }
 
-
+Simulator simulator = new Simulator(new ControlP5(this));
 
 void setup(){
     size(1000, 600);
     background(0);
-    Simulator simulator = new Simulator(new ControlP5(this));
+    //Simulator simulator = new Simulator(new ControlP5(this));
     //simulator.initialDraw();
 }
 
