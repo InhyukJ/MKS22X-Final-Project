@@ -26,18 +26,20 @@ class Simulator{
         
         this.cp5 = cp5;
         
-        initialDraw();
+        initialDrawCP5();        
+                
         play = false;
         simSpd = 1;
-        mass1 = cp5.getController("m1").getValue();
-        mass2 = cp5.getController("m2").getValue();
-        iPosX1 = cp5.getController("x1").getValue();
-        iPosX2 = cp5.getController("x2").getValue();
-        spd1 = cp5.getController("v1").getValue();
-        spd2 = cp5.getController("v2").getValue();
+        mass1 = 25;
+        mass2 = 10;
+        iPosX1 = 230;
+        iPosX2 = 430;
+        spd1 = 5;
+        spd2 = 10;
         
         objects.add(new Ball(iPosX1, 200, mass1, mass1, spd1, 180, true)); //based on default values
         objects.add(new Ball(iPosX2, 200, mass2, mass2, spd2, 0, true)); //based on default values
+        initialDraw();
         //should take in values from ControlP5
         PQ = new PriorityQueueEvent();
         //based on ArrayList<Obj> objects, will create events and add them (or will it just be updated with the PQ.update?  
@@ -49,6 +51,7 @@ class Simulator{
                 }
             }
         }
+        //initialDraw();
     }
     
     ArrayList<Obj> getObjects(){
@@ -128,7 +131,12 @@ class Simulator{
               ellipse(((Ball)object).getX(), ((Ball)object).getY(), ((Ball)object).getRadius(), ((Ball)object).getRadius());
           }
        }
-       //draw labels for input areas (string)
+       //ctrl + X
+   }
+   
+   void initialDrawCP5() {
+     
+        //draw labels for input areas (string)
        PFont font = createFont("Arial", 24, true);
        //fill(0);
        text("Ball 1", 30, 430);
@@ -157,8 +165,8 @@ class Simulator{
        cp5.addTextfield("m2")
           .setPosition(80, 480)
           .setSize(60, 20)
-          .setText("25")
-          .setValue(25);
+          .setText("10")
+          .setValue(10);
        cp5.addTextfield("x1")
           .setPosition(160, 410)
           .setSize(60, 20)
@@ -230,9 +238,21 @@ void setup(){
     size(1000, 600);
     background(0);
     Simulator simulator = new Simulator(new ControlP5(this));
-    simulator.initialDraw();
+    //simulator.initialDraw();
 }
 
 void draw(){
-  
+  /*
+        boolean play = cp5.getPlay();
+        float simSpd = getSimSpd();
+        float mass1 = getMass1();
+        float mass2 = getMass2();
+        float iPosX1 = getIPosX1();
+        float iPosX2 = getIPosX2();
+        float spd1 = getSpd1();
+        float spd2 = getSpd2();
+        
+        ellipse(iPosX1, 200, mass1, mass1);
+        ellipse(iPosX2, 200, mass2, mass2);
+        */
 }
