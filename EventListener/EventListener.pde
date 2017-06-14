@@ -69,10 +69,12 @@ class Simulator{
     void setSpd1(float spd1){this.spd1 = spd1;}
     void setSpd2(float spd2){this.spd2 = spd2;}
      
+    /*
     void update() {
       //Thread.sleep(someDelayTime)
       updateH();
     }
+    */
    
     void updateH() {
         Event pEvt = PQ.peek();
@@ -176,6 +178,12 @@ class Simulator{
        //ctrl + X
        //? what is the shortcut commented above for?
    }
+   
+    void generalVarUpdate(){ //uses instance variables to update balls' vel, velDir, mass, and radius
+        Ball b1 = (Ball)(objects.get(4));
+        Ball b2 = (Ball)(objects.get(5));
+        
+    }
    
    void reDraw(){ // to visually update screen. called every *insertDelayTime i.e. called every time the simulation loops
        /*
