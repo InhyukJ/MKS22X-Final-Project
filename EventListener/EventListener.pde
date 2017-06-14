@@ -219,11 +219,20 @@ class Simulator{
 
 
 public void Restart(int theValue){
-   System.out.println("restarted");
-   ((Ball)(simulator.getObjects()).get(4)).setX(simulator.getIPosX1());
-   ((Ball)(simulator.getObjects()).get(5)).setX(simulator.getIPosX2());
-   cp5.getController("Play").setValue(0);
- }
+    //System.out.println("restarted");
+    ((Ball)(simulator.getObjects()).get(4)).setX(simulator.getIPosX1());
+    ((Ball)(simulator.getObjects()).get(5)).setX(simulator.getIPosX2());
+    cp5.getController("Play").setValue(0);
+}
+
+public void Play(int theValue){
+    System.out.println("play toggled: " + cp5.getController("Play").getValue());
+    if(cp5.getController("Play").getValue() == 1.0){
+        simulator.setPlay(true);
+    }else{
+        simulator.setPlay(false);
+    }
+}
 
 public void m1(String theText){
     
