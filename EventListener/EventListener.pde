@@ -24,9 +24,7 @@ class Simulator{
         objects.add(new Wall(false, false));
         
         this.cp5 = cp5;
-        
-        initialDrawCP5();        
-                
+        initialDrawCP5();
         play = false;
         simSpd = 1;
         mass1 = 25;
@@ -38,11 +36,11 @@ class Simulator{
         
         objects.add(new Ball(iPosX1, 200, mass1, mass1, spd1, 180, true)); //based on default values
         objects.add(new Ball(iPosX2, 200, mass2, mass2, spd2, 0, true)); //based on default values
-        initialDraw();
         //should take in values from ControlP5
+        initialDraw();
+        
         PQ = new PriorityQueueEvent();
-        //based on ArrayList<Obj> objects, will create events and add them (or will it just be updated with the PQ.update?  
-        //no... that only rearranges existing events)
+        //based on ArrayList<Obj> objects, will create events and add them
         for(int i = 0; i < objects.size(); i++){
             for(int index = i + 1; index < objects.size(); index++){
                 if(!(objects.get(i).isWall() && objects.get(index).isWall())){
@@ -50,39 +48,31 @@ class Simulator{
                 }
             }
         }
-        //initialDraw();
     }
     
-    ArrayList<Obj> getObjects(){
-        return objects;
-    }
+    ArrayList<Obj> getObjects(){return objects;}
+    boolean getPlay(){return play;}
+    float getSimSpd(){return simSpd;}
+    float getMass1(){return mass1;}
+    float getMass2(){return mass2;}
+    float getIPosX1(){return iPosX1;}
+    float getIPosX2(){return iPosX2;}
+    float getSpd1(){return spd1;}
+    float getSpd2(){return spd2;}
     
-    /*
-      EventListener is basically doing this (for the repeating part) 
-      when the start/play button has been pressed:
-      *Delay time - the minimum time between "frames"/updates. I think this will help in keeping the 
-      animation consistent. Maybe the delay time can be controlled by a slider (then it will change
-      the simulation speed). The delay time is pretty small, since we want to keep the animation smooth
-      - check if a collision has happened yet (ask PQ to reference the distance of the 
-        root event
-        - PQ.update()
-        - if collision, recalculate velocity, direction, then update the objects' variables (not screen)
-        - if no collision, wait for the delay time/keep looping 
-      - update all displayed values (such as velocity) except for position of the ball
-      - based on updated values, make the ball travel on-screen (i.e. update the visuals on screen)
-        - in 1D, balls automatically move towards each other before the first collision, 
-          so set the default direction (whenever the restart button is pressed) this way. 
-          The changes in direction from following collisions is calculated from/during the 
-          collision. (i.e. need restart method)
-      Pause freezes the animation & calculations w/o program closing, so perhaps the 
-      update/run function has a boolean parameter, which, if set to false, just waits for 
-      the duration of the delay time instead of updating & delaying as usual
-     */
+    void setPlay(boolean play){this.play = play;}
+    void setSimSpd(float simSpd){this.simSpd = simSpd;}
+    void setMass1(float mass1){this.mass1 = mass1;}
+    void setMass2(float mass2){this.mass2 = mass2;}
+    void setIPosX1(float iPosX1){this.iPosX1 = iPosX1;}
+    void setIPosX2(float iPosX2){this.iPosX2 = iPosX2;}
+    void setSpd1(float spd1){this.spd1 = spd1;}
+    void setSpd2(float spd2){this.spd2 = spd2;}
      
     void update() {
       //Thread.sleep(someDelayTime)
       updateH();
-   }
+    }
    
     void updateH() {
         Event pEvt = PQ.peek();
@@ -118,14 +108,13 @@ class Simulator{
     }
     
    boolean isColliding(Event evt) { //so will check the root event i.e. event with smallest distanceObj12()
-       //pre-condition: PQ.update(); 
+      //pre-condition: PQ.update(); 
       return evt.distanceObj12() < 5.0f;
    }
    
    void initialDrawCP5() {
        //draw labels for input areas (string)
        PFont font = createFont("Arial", 24, true);
-       //fill(0);
        text("Ball 1", 30, 430);
        text("Ball 2", 30, 500);
        text("Mass (kg)", 80, 400);
@@ -185,9 +174,10 @@ class Simulator{
           }
        }
        //ctrl + X
+       //? what is the shortcut commented above for?
    }
    
-   void reDraw(){ // to visually update screen. called every *insertDelayTime i.e. called everytime the simulation loops
+   void reDraw(){ // to visually update screen. called every *insertDelayTime i.e. called every time the simulation loops
        /*
          translate circles a very small amt and resize if needed
          will probably want to use a for loop, disregarding Walls
@@ -195,27 +185,24 @@ class Simulator{
        
    }
    
-   void simLoop(boolean paused){ // the loop that puts all the helper functs together. should be called in draw()
-       redraw();
-   }
-   
-   boolean getPlay(){return play;}
-   float getSimSpd(){return simSpd;}
-   float getMass1(){return mass1;}
-   float getMass2(){return mass2;}
-   float getIPosX1(){return iPosX1;}
-   float getIPosX2(){return iPosX2;}
-   float getSpd1(){return spd1;}
-   float getSpd2(){return spd2;}
-   
-   void setPlay(boolean play){this.play = play;}
-   void setSimSpd(float simSpd){this.simSpd = simSpd;}
-   void setMass1(float mass1){this.mass1 = mass1;}
-   void setMass2(float mass2){this.mass2 = mass2;}
-   void setIPosX1(float iPosX1){this.iPosX1 = iPosX1;}
-   void setIPosX2(float iPosX2){this.iPosX2 = iPosX2;}
-   void setSpd1(float spd1){this.spd1 = spd1;}
-   void setSpd2(float spd2){this.spd2 = spd2;}
+    void simLoop(boolean paused){ // the loop that puts all the helper functs together. should be called in draw()
+        long startTime = System.currentTimeMillis();
+        //use appropriate instance variable values
+        if(paused){
+            //visually update ball radius
+        }else{
+            //translate balls (will have to figure out x- & y- components & update visually
+            if(isColliding(PQ.peek())){
+                //update instance vars & textfields of balls based on collision calculations
+            }
+        }
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+        //figure out totalDelayTime based on simSpd
+        long remainingTime = totalDelayTime - elapsedTime;
+        Thread.sleep(remainingTime);
+        //redraw();
+    }
 }
 
 
@@ -283,17 +270,5 @@ void setup(){
 }
 
 void draw(){
-  /*
-        boolean play = cp5.getPlay();
-        float simSpd = getSimSpd();
-        float mass1 = getMass1();
-        float mass2 = getMass2();
-        float iPosX1 = getIPosX1();
-        float iPosX2 = getIPosX2();
-        float spd1 = getSpd1();
-        float spd2 = getSpd2();
-        
-        ellipse(iPosX1, 200, mass1, mass1);
-        ellipse(iPosX2, 200, mass2, mass2);
-        */
+    
 }
