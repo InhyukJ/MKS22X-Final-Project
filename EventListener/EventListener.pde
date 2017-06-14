@@ -243,10 +243,39 @@ public void Play(int theValue){
 //for changes to simSpd
 
 public void m1(String theText){ //triggered/updated when ENTER key pressed
-    System.out.println("m1 changed: " + Float.parseFloat(theText));
+    //System.out.println("m1 changed: " + Float.parseFloat(theText));
     simulator.setMass1(Float.parseFloat(theText));
-    cp5.getController("m1").setText(theText); //must re-display entered value-----error------
+    //cp5.getController("m1").setText(theText); //must re-display entered value--------error----------
 }
+
+//other text fields
+//add instructions and error-handling for non-numerical inputs
+
+public void m2(String theText){
+    //System.out.println("m2 changed: " + Float.parseFloat(theText));
+    simulator.setMass2(Float.parseFloat(theText));
+}
+
+public void x1(String theText){
+    //System.out.println("x1 changed: " + Float.parseFloat(theText));
+    simulator.setIPosX1(Float.parseFloat(theText));
+}
+
+public void x2(String theText){
+    //System.out.println("x2 changed: " + Float.parseFloat(theText));
+    simulator.setIPosX2(Float.parseFloat(theText));
+}
+
+public void v1(String theText){
+    //System.out.println("v1 changed: " + Float.parseFloat(theText));
+    simulator.setSpd1(Float.parseFloat(theText));
+}
+
+public void v2(String theText){
+    //System.out.println("v2 changed: " + Float.parseFloat(theText));
+    simulator.setSpd2(Float.parseFloat(theText));
+}
+
 
 ControlP5 cp5;
 Simulator simulator;
