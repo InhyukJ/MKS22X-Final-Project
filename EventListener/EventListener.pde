@@ -7,7 +7,6 @@ class Simulator{
     PriorityQueueEvent PQ;
     ArrayList<Obj> objects;
     ControlP5 cp5;
-    //may need to add variables controlled by the cp5 stuff
     boolean play;
     float simSpd;
     float mass1;
@@ -153,7 +152,7 @@ class Simulator{
           .setMode(ControlP5.SWITCH);
        cp5.addSlider("Simulation Speed") //create sim spd slider
           .setPosition(820, 30)
-          .setRange(0, 5);
+          .setRange(1, 5);
        //cp5.addToggle("") //add in extra options later
           //.setPosition(300, 500)
           //.setValue(false);
@@ -201,11 +200,9 @@ class Simulator{
        redraw();
    }
    
-   void restarted(){
-       //cp5. //change toggle
-       ((Ball)objects.get(4)).setX(iPosX1);
-       ((Ball)objects.get(5)).setX(iPosX2);
-   }
+   /*public void controlEvent(ControlEvent theEvent){
+      println(theEvent.getController().getName()); 
+   }*/
    
    boolean getPlay(){return play;}
    float getSimSpd(){return simSpd;}
@@ -222,23 +219,24 @@ class Simulator{
 
 
 public void Restart(int theValue){
-    //println("pressed");
-    //cp5. //set play to false
-    //play = false;
-    
-}
+   System.out.println("restarted");
+   ((Ball)(simulator.getObjects()).get(4)).setX(simulator.getIPosX1());
+   ((Ball)(simulator.getObjects()).get(5)).setX(simulator.getIPosX2());
+   cp5.getController("Play").setValue(0);
+ }
 
 public void m1(String theText){
     
 }
 
-
+ControlP5 cp5;
+Simulator simulator;
 
 void setup(){
     size(1000, 600);
     background(0);
-    Simulator simulator = new Simulator(new ControlP5(this));
-    //simulator.initialDraw();
+    cp5 = new ControlP5(this);
+    simulator = new Simulator(cp5);
 }
 
 void draw(){
