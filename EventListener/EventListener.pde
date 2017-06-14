@@ -214,7 +214,13 @@ class Simulator{
    float getSpd2(){return spd2;}
    
    void setPlay(boolean play){this.play = play;}
-   //void setSimSpd(float
+   void setSimSpd(float simSpd){this.simSpd = simSpd;}
+   void setMass1(float mass1){this.mass1 = mass1;}
+   void setMass2(float mass2){this.mass2 = mass2;}
+   void setIPosX1(float iPosX1){this.iPosX1 = iPosX1;}
+   void setIPosX2(float iPosX2){this.iPosX2 = iPosX2;}
+   void setSpd1(float spd1){this.spd1 = spd1;}
+   void setSpd2(float spd2){this.spd2 = spd2;}
 }
 
 
@@ -226,7 +232,7 @@ public void Restart(int theValue){
 }
 
 public void Play(int theValue){
-    System.out.println("play toggled: " + cp5.getController("Play").getValue());
+    //System.out.println("play toggled: " + cp5.getController("Play").getValue());
     if(cp5.getController("Play").getValue() == 1.0){
         simulator.setPlay(true);
     }else{
@@ -234,8 +240,12 @@ public void Play(int theValue){
     }
 }
 
-public void m1(String theText){
-    
+//for changes to simSpd
+
+public void m1(String theText){ //triggered/updated when ENTER key pressed
+    System.out.println("m1 changed: " + Float.parseFloat(theText));
+    simulator.setMass1(Float.parseFloat(theText));
+    cp5.getController("m1").setText(theText); //must re-display entered value-----error------
 }
 
 ControlP5 cp5;
