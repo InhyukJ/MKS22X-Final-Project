@@ -122,20 +122,8 @@ class Simulator{
       return evt.distanceObj12() < 5.0f;
    }
    
-   void initialDraw(){ //will display walls, then create controlP5 stuff
-       for(Obj object : objects){
-          if(object.isWall()){ //draw walls (rect)
-              rect(((Wall)object).getX(), ((Wall)object).getY(), ((Wall)object).getWidth(), ((Wall)object).getHeight());
-          }else{ //draw balls (ellipse)
-              ellipse(((Ball)object).getX(), ((Ball)object).getY(), ((Ball)object).getRadius(), ((Ball)object).getRadius());
-          }
-       }
-       //ctrl + X
-   }
-   
    void initialDrawCP5() {
-     
-        //draw labels for input areas (string)
+       //draw labels for input areas (string)
        PFont font = createFont("Arial", 24, true);
        //fill(0);
        text("Ball 1", 30, 430);
@@ -188,6 +176,17 @@ class Simulator{
           .setValue(10);
    }
    
+   void initialDraw(){ //will display walls, then create controlP5 stuff
+       for(Obj object : objects){
+          if(object.isWall()){ //draw walls (rect)
+              rect(((Wall)object).getX(), ((Wall)object).getY(), ((Wall)object).getWidth(), ((Wall)object).getHeight());
+          }else{ //draw balls (ellipse)
+              ellipse(((Ball)object).getX(), ((Ball)object).getY(), ((Ball)object).getRadius(), ((Ball)object).getRadius());
+          }
+       }
+       //ctrl + X
+   }
+   
    void reDraw(){ // to visually update screen. called every *insertDelayTime i.e. called everytime the simulation loops
        /*
          translate circles a very small amt and resize if needed
@@ -199,10 +198,6 @@ class Simulator{
    void simLoop(boolean paused){ // the loop that puts all the helper functs together. should be called in draw()
        redraw();
    }
-   
-   /*public void controlEvent(ControlEvent theEvent){
-      println(theEvent.getController().getName()); 
-   }*/
    
    boolean getPlay(){return play;}
    float getSimSpd(){return simSpd;}
