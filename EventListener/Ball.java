@@ -1,3 +1,5 @@
+import java.lang.Math;
+
 public class Ball implements Obj{
     private float radius, x, y, vel, velDir, mass;
     private boolean elasticity;
@@ -70,6 +72,14 @@ public class Ball implements Obj{
     public float getMass() {return mass;}
     public float getVel() {return vel;}
     public float getVelDir() {return velDir;}
+
+    public float momentum(){
+	return mass * vel;
+    }
+
+    public float kineticEnergy(){
+	return (1.0f / 2.0f) * mass * (float)(Math.pow(vel, 2));
+    }
     
     public void setX(float x) {this.x = x;}
     public void setY(float y) {this.y = y;}
