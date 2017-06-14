@@ -118,7 +118,7 @@ class Simulator{
        //pre-condition: PQ.update(); 
       return evt.distanceObj12() < 5.0f;
    }
-   
+
    void initialDrawCP5(){ //will create controlP5 stuff
        cp5.addButton("Restart") //create Restart button
           .setPosition(690, 30)
@@ -159,7 +159,110 @@ class Simulator{
           .setText("10");
    }
    
-   void initialDraw(){ //will display walls
+//   void initialDraw(){ //will display walls
+//=======
+//<<<<<<< HEAD
+   
+ControlP5 cp5;
+Accordion accordion;
+
+
+void setup(){
+    size(1000, 600);
+    Simulator simulator = new Simulator();
+    initialDraw();
+    
+}
+   
+   void initialDraw(){ //will display controlP5 stuff and walls
+      cp5 = new ControlP5(this);
+      
+      //group 1, contains
+      Group g1 = cp5.addGroup("1D vs 2D")
+                    .setBackgroundColor(color(0, 64)) //placehold colors
+                    .setBackgroundHeight(75)
+                    ;
+                    
+     cp5.addRadioButton("radio")
+        .setPosition(10, 30)
+        .setItemWidth(20)
+        .setItemHeight(20)
+        .addItem("1D", 1)
+        .addItem("2D", 2)
+        .setColorLabel(color(225)) //placehold color
+        .activate(1)
+        .moveTo(g1)
+        ;
+        
+     Group g2 = cp5.addGroup("Elasticity")
+                   .setBackgroundColor(color(0, 64)) //placehold colors
+                   .setBackgroundHeight(75)
+                   ;
+                   
+     cp5.addRadioButton("radio")
+       .setPosition(10, 30)
+       .setItemWidth(20)
+       .setItemHeight(20)
+       .addItem("Elastic Collision", 1)
+       .addItem("Inelastic Collision", 2)
+       .setColorLabel(color(225)) //placehold color
+       .activate(1)
+       .moveTo(g2)
+       ;
+       
+     Group g3 = cp5.addGroup("Size")
+                   .setBackgroundColor(color(0, 64)) //ph colors
+                   .setBackgroundHeight(100)
+                   ;
+                   
+     cp5.addSlider("Ball 1")
+        .setPosition(20, 20)
+        .setSize(100, 20)
+        .setRange(1, 50)
+        .setValue(25)
+        .moveTo(g3)
+        ;
+        
+     cp5.addSlider("Ball 2")
+        .setPosition(20, 60)
+        .setSize(100, 20)
+        .setRange(1, 50)
+        .setValue(25)
+        .moveTo(g3)
+        ;
+        
+     Group g4 = cp5.addGroup("Speed")
+                   .setBackgroundColor(color(0, 64))
+                   .setBackgroundHeight(100);
+     
+     cp5.addSlider("Ball 1")
+        .setPosition(20, 20)
+        .setSize(100, 20)
+        .setRange(1, 20)
+        .setValue(10)
+        .moveTo(g4)
+        ;
+        
+     cp5.addSlider("Ball 2")
+        .setPosition(20, 60)
+        .setSize(100, 20)
+        .setRange(1, 20)
+        .setValue(10)
+        .moveTo(g4)
+        ;
+ 
+     accordion = cp5.addAccordian("acc")
+                    .setPosition(20, 20)
+                    .setWidth(150)
+                    .addItem(g1)
+                    .addItem(g2)
+                    .addItem(g3)
+                    ;
+    
+     accordion.open(0, 1, 2, 3);
+/*=======
+   void initialDraw(){ //will display walls, then create controlP5 stuff
+>>>>>>> 9fc69281f6870d107add856e19146c6feca3fb53
        for(Obj object : objects){
           if(object.isWall()){ //draw walls (rect)
               rect(((Wall)object).getX(), ((Wall)object).getY(), ((Wall)object).getWidth(), ((Wall)object).getHeight());
@@ -175,6 +278,47 @@ class Simulator{
        text("Mass (kg)", 80, 400);
        text("Position (m)", 160, 400);
        text("Velocity (m/s)", 240, 400);
+<<<<<<< HEAD
+=======
+       cp5.addButton("Restart") //create Restart button
+          .setPosition(690, 30)
+          .setValue(0);
+       cp5.addToggle("Play") //create Play toggle
+          .setPosition(770, 30)
+          .setValue(false)
+          .setMode(ControlP5.SWITCH);
+       cp5.addSlider("Simulation Speed") //create sim spd slider
+          .setPosition(820, 30)
+          .setRange(0, 5);
+       //cp5.addToggle("") //add in extra options later
+          //.setPosition(300, 500)
+          //.setValue(false);
+       cp5.addTextfield("m1")
+          .setPosition(80, 410)
+          .setSize(60, 20)
+          .setText("25");
+       cp5.addTextfield("m2")
+          .setPosition(80, 480)
+          .setSize(60, 20)
+          .setText("25");
+       cp5.addTextfield("x1")
+          .setPosition(160, 410)
+          .setSize(60, 20)
+          .setText("230");
+       cp5.addTextfield("x2")
+          .setPosition(160, 480)
+          .setSize(60, 20)
+          .setText("430");
+       cp5.addTextfield("v1")
+          .setPosition(240, 410)
+          .setSize(60, 20)
+          .setText("5");
+       cp5.addTextfield("v2")
+          .setPosition(240, 480)
+          .setSize(60, 20)
+          .setText("10");
+>>>>>>> 106e9b48628f8bcd96bd8c48ad970af3a4d7880a
+>>>>>>> 9fc69281f6870d107add856e19146c6feca3fb53*/
    }
    
    void reDraw(){ // to visually update screen. called every *insertDelayTime i.e. called everytime the simulation loops
@@ -185,7 +329,14 @@ class Simulator{
        
    }
    
-   void simLoop(boolean paused){ // the loop that puts all the helper functs together. should be called in draw()
+//<<<<<<< HEAD
+//=======
+//<<<<<<< HEAD
+   void simLoop(boolean loop){ // the loop that puts all the helper functs together. should be called in draw()
+     
+//=======
+//>>>>>>> 9fc69281f6870d107add856e19146c6feca3fb53
+   //void simLoop(boolean paused){ // the loop that puts all the helper functs together. should be called in draw()
        redraw();
    }
    
@@ -193,6 +344,10 @@ class Simulator{
        //cp5. //change toggle
        ((Ball)objects.get(4)).setX(iPosX1);
        ((Ball)objects.get(5)).setX(iPosX2);
+/*<<<<<<< HEAD
+=======
+>>>>>>> 106e9b48628f8bcd96bd8c48ad970af3a4d7880a
+>>>>>>> 9fc69281f6870d107add856e19146c6feca3fb53*/
    }
    
    boolean getPlay(){return play;}
@@ -220,15 +375,26 @@ public void m1(String theText){
     
 }
 
+//<<<<<<< HEAD
 Simulator simulator = new Simulator(new ControlP5(this));
+//=======
+//<<<<<<< HEAD
+//=======
+
+//>>>>>>> 9fc69281f6870d107add856e19146c6feca3fb53
 
 void setup(){
     size(1000, 600);
     background(0);
+//<<<<<<< HEAD
     //Simulator simulator = new Simulator(new ControlP5(this));
+//=======
+    //Simulator simulator = new Simulator(new ControlP5(this));
+//>>>>>>> 9fc69281f6870d107add856e19146c6feca3fb53
     //simulator.initialDraw();
 }
 
+//>>>>>>> 106e9b48628f8bcd96bd8c48ad970af3a4d7880a
 void draw(){
   
 }
