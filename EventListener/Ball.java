@@ -85,6 +85,9 @@ public class Ball implements Obj{
     public void setY(float y) {this.y = y;}
     public void setVel(float vel) {this.vel = vel;}
     public void setVelDir(float velDir) {this.velDir = velDir;}
+    public void setMass(float mass){this.mass = mass;}
+    public void setRadius(float radius){this.radius = radius;}
+    
 
     public boolean isWall() {
 	return false;
