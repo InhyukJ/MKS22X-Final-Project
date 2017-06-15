@@ -204,8 +204,15 @@ class Simulator{
         generalVarUpdate(); //use appropriate instance variable values
         if(play){
             playingUpdate(); //translate balls (will have to figure out x- & y- components & update visually
-            if(isColliding(PQ.peek())){
+            Event pEvt = PQ.peek();
+            if(isColliding(pEvt)){
                 //update instance vars & textfields of balls based on collision calculations
+                Obj Obj1 = pEvt.getObj1();
+                Obj Obj2 = pEvt.getObj2();
+                //if(!Obj1.isWall() && !Obj2.isWall()) {
+                //    ((Ball)Obj1).bounceB((Ball)Obj2, true); //just put a placeholder true for now. remember 
+                //    //to update this statement based on the change you made to Ball.java
+                //}else if(
                 
             }
         }
