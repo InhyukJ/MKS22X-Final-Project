@@ -37,7 +37,7 @@ class Simulator{
         objects.add(new Ball(iPosX1, 200, mass1, mass1, spd1, 180, true)); //based on default values
         objects.add(new Ball(iPosX2, 200, mass2, mass2, spd2, 0, true)); //based on default values
         //should take in values from ControlP5
-        initialDraw();
+        //initialDraw();
         
         PQ = new PriorityQueueEvent();
         //based on ArrayList<Obj> objects, will create events and add them
@@ -68,13 +68,6 @@ class Simulator{
     void setIPosX2(float iPosX2){this.iPosX2 = iPosX2;}
     void setSpd1(float spd1){this.spd1 = spd1;}
     void setSpd2(float spd2){this.spd2 = spd2;}
-     
-    /*
-    void update() {
-      //Thread.sleep(someDelayTime)
-      updateH();
-    }
-    */
    
     void updateH() {
         Event pEvt = PQ.peek();
@@ -115,13 +108,6 @@ class Simulator{
    }
    
    void initialDrawCP5() {
-       //draw labels for input areas (string)
-       PFont font = createFont("Arial", 24, true);
-       text("Ball 1", 30, 430);
-       text("Ball 2", 30, 500);
-       text("Mass (kg)", 80, 400);
-       text("Position (m)", 160, 400);
-       text("Velocity (m/s)", 240, 400);
        cp5.addButton("Restart") //create Restart button
           .setPosition(690, 30)
           .setValue(0);
@@ -167,7 +153,7 @@ class Simulator{
           .setValue(10);
    }
    
-   void initialDraw(){ //will display walls, then create controlP5 stuff
+   void initialDraw(){ //will display walls, then create controlP5 stuffs' labels
        for(Obj object : objects){
           if(object.isWall()){ //draw walls (rect)
               rect(((Wall)object).getX(), ((Wall)object).getY(), ((Wall)object).getWidth(), ((Wall)object).getHeight());
@@ -177,39 +163,62 @@ class Simulator{
        }
        //ctrl + X
        //? what is the shortcut commented above for?
+       //draw labels for input areas (string)
+       PFont font = createFont("Arial", 24, true);
+       text("Ball 1", 30, 430);
+       text("Ball 2", 30, 500);
+       text("Mass (kg)", 80, 400);
+       text("Position (m)", 160, 400);
+       text("Velocity (m/s)", 240, 400);
    }
    
     void generalVarUpdate(){ //uses instance variables to update balls' vel, velDir, mass, and radius
         Ball b1 = (Ball)(objects.get(4));
         Ball b2 = (Ball)(objects.get(5));
-        
+        b1.setVel(spd1);
+        b2.setVel(spd2);
+        //b1.setVelDir(); //not able to be controlled by user yet
+        //b2.setVelDir();
+        b1.setMass(mass1);
+        b2.setMass(mass2);
+        b1.setRadius(mass1);
+        b2.setRadius(mass2);
+    }
+    
+    void playingUpdate(){
+        Ball b1 = (Ball)(objects.get(4));
+        Ball b2 = (Ball)(objects.get(5));
+        //Math.cos() & Math.sin() use angle in radians. convert to radians:
+        float b1VelDir = b1.getVelDir() / 180.0 * (float)(Math.PI);
+        float b2VelDir = b2.getVelDir() / 180.0 * (float)(Math.PI);
+        float dX1 = b1.getVel() * (float)(Math.cos(b1VelDir)); //x compoment of change; change in x
+        float dY1 = b1.getVel() * (float)(Math.sin(b1VelDir));
+        float dX2 = b2.getVel() * (float)(Math.cos(b2VelDir));
+        float dY2 = b2.getVel() * (float)(Math.sin(b2VelDir));
+        b1.addXY(dX1, dY1);
+        b2.addXY(dX2, dY2);
     }
    
-   void reDraw(){ // to visually update screen. called every *insertDelayTime i.e. called every time the simulation loops
-       /*
-         translate circles a very small amt and resize if needed
-         will probably want to use a for loop, disregarding Walls
-       */
-       
-   }
-   
-    void simLoop(boolean paused){ // the loop that puts all the helper functs together. should be called in draw()
+    void simLoop(){ // the loop that puts all the helper functs together. should be called in draw()
         long startTime = System.currentTimeMillis();
-        //use appropriate instance variable values
-        if(paused){
-            //visually update ball radius
-        }else{
-            //translate balls (will have to figure out x- & y- components & update visually
+        generalVarUpdate(); //use appropriate instance variable values
+        if(play){
+            playingUpdate(); //translate balls (will have to figure out x- & y- components & update visually
             if(isColliding(PQ.peek())){
                 //update instance vars & textfields of balls based on collision calculations
+                
             }
         }
+        initialDraw();
         long endTime = System.currentTimeMillis();
         long elapsedTime = endTime - startTime;
-        //figure out totalDelayTime based on simSpd
+        long totalDelayTime = 500L / (long)simSpd; //figure out totalDelayTime based on simSpd
         long remainingTime = totalDelayTime - elapsedTime;
-        Thread.sleep(remainingTime);
-        //redraw();
+        try{
+            Thread.sleep(remainingTime);
+        }catch(InterruptedException e){
+            System.out.println("Sleep interrupted");
+        }
     }
 }
 
@@ -278,5 +287,6 @@ void setup(){
 }
 
 void draw(){
-    
+    background(0);
+    simulator.simLoop();
 }
