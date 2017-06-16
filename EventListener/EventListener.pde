@@ -220,7 +220,10 @@ class Simulator{
         long endTime = System.currentTimeMillis();
         long elapsedTime = endTime - startTime;
         long totalDelayTime = 500L / (long)simSpd; //figure out totalDelayTime based on simSpd
-        long remainingTime = totalDelayTime - elapsedTime;
+        long remainingTime = 0;
+        if(totalDelayTime - elapsedTime > 0){
+            remainingTime = totalDelayTime - elapsedTime;
+        }
         try{
             Thread.sleep(remainingTime);
         }catch(InterruptedException e){
