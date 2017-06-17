@@ -68,37 +68,6 @@ class Simulator{
     void setIPosX2(float iPosX2){this.iPosX2 = iPosX2;}
     void setSpd1(float spd1){this.spd1 = spd1;}
     void setSpd2(float spd2){this.spd2 = spd2;}
-   
-    void updateH() {
-      System.out.println("invoked?");
-        Event pEvt = PQ.peek();
-        Obj Obj1 = pEvt.getObj1();
-        Obj Obj2 = pEvt.getObj2();
-        if (isColliding(pEvt)) {
-         System.out.println("Colliding");
-            if (!Obj1.isWall() && !Obj2.isWall()) {
-                ((Ball)Obj1).bounceB((Ball)Obj2, true); //just put a placeholder true for now. remember 
-                //to update this statement based on the change you made to Ball.java
-            }
-            else if (!Obj1.isWall()) {
-                if (!((Wall)Obj2).isHorizontal()) ((Ball)Obj1).bounceY();
-                else ((Ball)Obj1).bounceX();
-            }
-            else {
-                if (((Wall)Obj1).isHorizontal()) ((Ball)Obj2).bounceY();
-                else ((Ball)Obj2).bounceX();
-            }
-        }
-  
-        if (!Obj1.isWall()) { //NEEDS TO BE MODIFIED FOR 2D
-            ((Ball)Obj1).setX(((Ball)Obj1).getX() + (((Ball)Obj1).getVel()));
-        }
-        else if (!Obj2.isWall()) {
-            ((Ball)Obj2).setX(((Ball)Obj2).getX() + (((Ball)Obj2).getVel()));
-        }
-
-        PQ.update();
-    }
     
    boolean isColliding(Event evt) { //so will check the root event i.e. event with smallest distanceObj12()
       //System.out.println("colliding");
@@ -189,10 +158,13 @@ class Simulator{
         //Math.cos() & Math.sin() use angle in radians. convert to radians:
         float b1VelDir = b1.getVelDir() / 180.0 * (float)(Math.PI);
         float b2VelDir = b2.getVelDir() / 180.0 * (float)(Math.PI);
-        float dX1 = b1.getVel() * (float)(Math.cos(b1VelDir)); //x compoment of change; change in x
-        float dY1 = b1.getVel() * (float)(Math.sin(b1VelDir));
-        float dX2 = b2.getVel() * (float)(Math.cos(b2VelDir));
-        float dY2 = b2.getVel() * (float)(Math.sin(b2VelDir));
+        //scaling down velocity into distance/pixels traveled:
+        float scaledVel1 = b1.getVel() * 0.25f;
+        float scaledVel2 = b2.getVel() * 0.25f;
+        float dX1 = scaledVel1 * (float)(Math.cos(b1VelDir)); //x compoment of change; change in x
+        float dY1 = scaledVel1 * (float)(Math.sin(b1VelDir));
+        float dX2 = scaledVel2 * (float)(Math.cos(b2VelDir));
+        float dY2 = scaledVel2 * (float)(Math.sin(b2VelDir));
         b1.addXY(dX1, dY1);
         b2.addXY(dX2, dY2);
     }
