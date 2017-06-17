@@ -83,9 +83,9 @@ class Simulator{
           .setPosition(770, 30)
           .setValue(false)
           .setMode(ControlP5.SWITCH);
-       cp5.addSlider("Simulation Speed") //create sim spd slider
+       cp5.addSlider("SimulationSpeed") //create sim spd slider
           .setPosition(820, 30)
-          .setRange(1, 5);
+          .setRange(1, 15);
        cp5.addToggle("Inelastic") //add in more options like so later
           .setPosition(770, 80)
           .setValue(true)
@@ -205,7 +205,7 @@ class Simulator{
         initialDraw(); //redraw based on updated positions
         long endTime = System.currentTimeMillis();
         long elapsedTime = endTime - startTime;
-        long totalDelayTime = 500L / (long)simSpd; //figure out totalDelayTime based on simSpd
+        long totalDelayTime = 50L / (long)simSpd; //figure out totalDelayTime based on simSpd
         long remainingTime = 0;
         if(totalDelayTime - elapsedTime > 0){
             remainingTime = totalDelayTime - elapsedTime;
@@ -223,7 +223,7 @@ public void Restart(int theValue){
     //System.out.println("restarted");
     ((Ball)(simulator.getObjects()).get(4)).setX(simulator.getIPosX1());
     ((Ball)(simulator.getObjects()).get(5)).setX(simulator.getIPosX2());
-    ((Ball)(simulator.getObjects()).get(4)).setY(200);//change this for 2D--------
+    ((Ball)(simulator.getObjects()).get(4)).setY(200);//change this for 2D--------------------------
     ((Ball)(simulator.getObjects()).get(5)).setY(200);
     cp5.getController("Play").setValue(0);
 }
@@ -237,9 +237,8 @@ public void Play(int theValue){
     }
 }
 
-//for changes to simSpd----------------------------------------------------------------------------
-public void simSpd(float theSpd){
-    System.out.println("simSpd changed: " + cp5.getController("simSpd").getValue());
+public void SimulationSpeed(float theSpd){
+    System.out.println("simSpd changed: " + cp5.getController("SimulationSpeed").getValue());
     simulator.setSimSpd(theSpd); 
 }
 
