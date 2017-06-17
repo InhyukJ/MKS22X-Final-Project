@@ -7,7 +7,7 @@ class Simulator{
     PriorityQueueEvent PQ;
     ArrayList<Obj> objects;
     ControlP5 cp5;
-    boolean play;
+    boolean play; //create 1D option
     float simSpd;
     float mass1;
     float mass2;
