@@ -15,6 +15,7 @@ class Simulator{
     float iPosX2;
     float spd1;
     float spd2;
+    boolean inelastic;
     
     Simulator(ControlP5 cp5) {
         objects = new ArrayList<Obj>();
@@ -33,12 +34,11 @@ class Simulator{
         iPosX2 = 430;
         spd1 = 5;
         spd2 = 10;
+        inelastic = true;
         
-        objects.add(new Ball(iPosX1, 200, mass1, mass1, spd1, 0, true)); //based on default values
-        objects.add(new Ball(iPosX2, 200, mass2, mass2, spd2, 180, true)); //based on default values
-        //should take in values from ControlP5
-        //initialDraw();
-        
+        objects.add(new Ball(iPosX1, 200, mass1, mass1, spd1, 0, inelastic)); //based on default values
+        objects.add(new Ball(iPosX2, 200, mass2, mass2, spd2, 180, inelastic)); //based on default values
+
         PQ = new PriorityQueueEvent();
         //based on ArrayList<Obj> objects, will create events and add them
         for(int i = 0; i < objects.size(); i++){
@@ -59,6 +59,7 @@ class Simulator{
     float getIPosX2(){return iPosX2;}
     float getSpd1(){return spd1;}
     float getSpd2(){return spd2;}
+    boolean getInelastic(){return inelastic;}
     
     void setPlay(boolean play){this.play = play;}
     void setSimSpd(float simSpd){this.simSpd = simSpd;}
@@ -68,9 +69,9 @@ class Simulator{
     void setIPosX2(float iPosX2){this.iPosX2 = iPosX2;}
     void setSpd1(float spd1){this.spd1 = spd1;}
     void setSpd2(float spd2){this.spd2 = spd2;}
+    void setInelastic(boolean inelastic){this.inelastic = inelastic;}
     
    boolean isColliding(Event evt) { //so will check the root event i.e. event with smallest distanceObj12()
-      //System.out.println("colliding");
       return evt.distanceObj12() <= 5.5f;
    }
    
@@ -85,9 +86,10 @@ class Simulator{
        cp5.addSlider("Simulation Speed") //create sim spd slider
           .setPosition(820, 30)
           .setRange(1, 5);
-       //cp5.addToggle("") //add in extra options later
-          //.setPosition(300, 500)
-          //.setValue(false);
+       cp5.addToggle("Inelastic") //add in more options like so later
+          .setPosition(770, 80)
+          .setValue(true)
+          .setMode(ControlP5.SWITCH);
        cp5.addTextfield("m1")
           .setPosition(80, 410)
           .setSize(60, 20)
@@ -137,6 +139,8 @@ class Simulator{
        text("Mass (kg)", 80, 400);
        text("Position (m)", 160, 400);
        text("Velocity (m/s)", 240, 400);
+       //Also print momentum & KE-------------------------------------------------------------------
+       
    }
    
     void generalVarUpdate(){ //uses instance variables to update balls' vel, velDir, mass, and radius
@@ -152,7 +156,7 @@ class Simulator{
         b2.setRadius(mass2);
     }
     
-    void playingUpdate(){ // update positions
+    void playingUpdate(){ //update positions
         Ball b1 = (Ball)(objects.get(4));
         Ball b2 = (Ball)(objects.get(5));
         //Math.cos() & Math.sin() use angle in radians. convert to radians:
@@ -170,24 +174,17 @@ class Simulator{
     }
    
     void simLoop(){ // the loop that puts all the helper functs together. should be called in draw()
-        //System.out.println("Invoked.");
         long startTime = System.currentTimeMillis();
         generalVarUpdate(); //use appropriate instance variable values
         if(play){
-            //playingUpdate(); //translate balls (will have to figure out x- & y- components & update visually
             Event pEvt = PQ.peek();
             if(isColliding(pEvt)){
-                //System.out.println("invoked");
                 //update instance vars & textfields of balls based on collision calculations
                 Obj Obj1 = pEvt.getObj1();
                 Obj Obj2 = pEvt.getObj2();
                 ///*
                 if(!Obj1.isWall() && !Obj2.isWall()){
-                  
-                    ((Ball)Obj1).bounceB((Ball)Obj2, true); //just put a placeholder true for now. remember 
-                    //to update this statement based on the change you made to Ball.java
-                    //need to update x & y vals?
-                    
+                    ((Ball)Obj1).bounceB((Ball)Obj2, inelastic);
                 }else if(!Obj1.isWall()){
                     if(!((Wall)Obj2).isHorizontal()){
                         ((Ball)Obj1).bounceY();
@@ -226,6 +223,8 @@ public void Restart(int theValue){
     //System.out.println("restarted");
     ((Ball)(simulator.getObjects()).get(4)).setX(simulator.getIPosX1());
     ((Ball)(simulator.getObjects()).get(5)).setX(simulator.getIPosX2());
+    ((Ball)(simulator.getObjects()).get(4)).setY(200);//change this for 2D--------
+    ((Ball)(simulator.getObjects()).get(5)).setY(200);
     cp5.getController("Play").setValue(0);
 }
 
@@ -238,7 +237,20 @@ public void Play(int theValue){
     }
 }
 
-//for changes to simSpd
+//for changes to simSpd----------------------------------------------------------------------------
+public void simSpd(float theSpd){
+    System.out.println("simSpd changed: " + cp5.getController("simSpd").getValue());
+    simulator.setSimSpd(theSpd); 
+}
+
+public void Inelastic(int theValue){
+    //System.out.println("inelastic toggled: " + cp5.getController("Inelastic").getValue());
+    if(cp5.getController("Inelastic").getValue() == 1.0){
+        simulator.setInelastic(true);
+    }else{
+        simulator.setInelastic(false);
+    }
+}
 
 public void m1(String theText){ //triggered/updated when ENTER key pressed
     //System.out.println("m1 changed: " + Float.parseFloat(theText));
