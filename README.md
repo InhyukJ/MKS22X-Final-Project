@@ -25,6 +25,10 @@
 </ul>
 <br>
 <h3> UML Diagram </h3> <!-- to be updated at very end -->
+    *For each instance variable, if logical, create get and set methods (not necessarily included in the UML diagram)
+    <br>
+    **For each ControlP5 controller, create a method with the same name (not necessarily included in the UML diagram)
+    <br>
     <img src="CS Project Proposals & Prototype (Spring).jpg">
 <br>
 <b> Dev. Log </b>
