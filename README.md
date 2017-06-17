@@ -24,8 +24,8 @@
     
 </ul>
 <br>
-<h3> UML Diagram </h3> <!-- to be added at very end -->
-    [To Be Added At Very End]
+<h3> UML Diagram </h3> <!-- to be updated at very end -->
+    <!--<img src="">-->
 <br>
 <b> Dev. Log </b>
 <ul>
