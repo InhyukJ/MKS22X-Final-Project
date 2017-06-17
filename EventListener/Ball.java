@@ -2,7 +2,7 @@ import java.lang.Math;
 
 public class Ball implements Obj{
     private float radius, x, y, vel, velDir, mass;
-    private boolean elasticity;
+    private boolean elasticity; //true meaning inelastic
     
     public Ball(float x, float y, float radius, float mass, float vel, float velDir, boolean elasticity) {
 	this.x = x;
@@ -38,6 +38,7 @@ public class Ball implements Obj{
   //System.out.println("bounceB");
 	
 	if (elasticity) { //For both balls, velocity and final angles are same
+	    //true meaning inelastic
 	    //calculate velocity
 	    float fVel = ((M * getVel()) + (otherM * other.getVel())) / (M + otherM);
 	    setVel(fVel);
