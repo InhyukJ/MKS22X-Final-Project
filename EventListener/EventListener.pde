@@ -34,8 +34,8 @@ class Simulator{
         spd1 = 5;
         spd2 = 10;
         
-        objects.add(new Ball(iPosX1, 200, mass1, mass1, spd1, 180, true)); //based on default values
-        objects.add(new Ball(iPosX2, 200, mass2, mass2, spd2, 0, true)); //based on default values
+        objects.add(new Ball(iPosX1, 200, mass1, mass1, spd1, 0, true)); //based on default values
+        objects.add(new Ball(iPosX2, 200, mass2, mass2, spd2, 180, true)); //based on default values
         //should take in values from ControlP5
         //initialDraw();
         
@@ -87,10 +87,6 @@ class Simulator{
                 else ((Ball)Obj2).bounceX();
             }
         }
-        
-        //I think the code below is supposed to be within the if statement above, no? it's in the case of a collision, right?
-        //also for that if statement, the else statement (just waiting for the duration of the delay time) needs to be 
-        //included
   
         if (!Obj1.isWall()) { //NEEDS TO BE MODIFIED FOR 2D
             ((Ball)Obj1).setX(((Ball)Obj1).getX() + (((Ball)Obj1).getVel()));
@@ -103,7 +99,6 @@ class Simulator{
     }
     
    boolean isColliding(Event evt) { //so will check the root event i.e. event with smallest distanceObj12()
-      //pre-condition: PQ.update(); 
       return evt.distanceObj12() < 5.0f;
    }
    
@@ -185,7 +180,7 @@ class Simulator{
         b2.setRadius(mass2);
     }
     
-    void playingUpdate(){
+    void playingUpdate(){ // update positions
         Ball b1 = (Ball)(objects.get(4));
         Ball b2 = (Ball)(objects.get(5));
         //Math.cos() & Math.sin() use angle in radians. convert to radians:
@@ -203,20 +198,36 @@ class Simulator{
         long startTime = System.currentTimeMillis();
         generalVarUpdate(); //use appropriate instance variable values
         if(play){
-            playingUpdate(); //translate balls (will have to figure out x- & y- components & update visually
+            //playingUpdate(); //translate balls (will have to figure out x- & y- components & update visually
             Event pEvt = PQ.peek();
             if(isColliding(pEvt)){
                 //update instance vars & textfields of balls based on collision calculations
                 Obj Obj1 = pEvt.getObj1();
                 Obj Obj2 = pEvt.getObj2();
-                //if(!Obj1.isWall() && !Obj2.isWall()) {
-                //    ((Ball)Obj1).bounceB((Ball)Obj2, true); //just put a placeholder true for now. remember 
-                //    //to update this statement based on the change you made to Ball.java
-                //}else if(
-                
+                ///*
+                if(!Obj1.isWall() && !Obj2.isWall()){
+                    ((Ball)Obj1).bounceB((Ball)Obj2, true); //just put a placeholder true for now. remember 
+                    //to update this statement based on the change you made to Ball.java
+                    //need to update x & y vals?
+                    
+                }else if(!Obj1.isWall()){
+                    if(!((Wall)Obj2).isHorizontal()){
+                        ((Ball)Obj1).bounceY();
+                    }else{ 
+                        ((Ball)Obj1).bounceX();
+                    }
+                }else{
+                    if (((Wall)Obj1).isHorizontal()){
+                        ((Ball)Obj2).bounceY();
+                    }else{ 
+                        ((Ball)Obj2).bounceX();
+                    }
+                }
             }
+            playingUpdate(); //translate balls (will have to figure out x- & y- components & update visually
+            PQ.update();
         }
-        initialDraw();
+        initialDraw(); //redraw based on updated positions
         long endTime = System.currentTimeMillis();
         long elapsedTime = endTime - startTime;
         long totalDelayTime = 500L / (long)simSpd; //figure out totalDelayTime based on simSpd
