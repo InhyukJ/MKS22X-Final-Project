@@ -24,6 +24,7 @@ public class Ball implements Obj{
     }
 
     public void bounceX() {
+      //System.out.println("BonceX");
 	velDir = adjust(180 - velDir);
     }
 
@@ -33,7 +34,8 @@ public class Ball implements Obj{
     
     public void bounceB(Ball other, boolean elasticity) { //Elastic collision
 	float otherM = other.getMass();
-	float M = getMass();
+	float M = this.getMass();
+  //System.out.println("bounceB");
 	
 	if (elasticity) { //For both balls, velocity and final angles are same
 	    //calculate velocity

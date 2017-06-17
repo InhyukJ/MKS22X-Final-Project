@@ -70,10 +70,12 @@ class Simulator{
     void setSpd2(float spd2){this.spd2 = spd2;}
    
     void updateH() {
+      System.out.println("invoked?");
         Event pEvt = PQ.peek();
         Obj Obj1 = pEvt.getObj1();
         Obj Obj2 = pEvt.getObj2();
         if (isColliding(pEvt)) {
+         System.out.println("Colliding");
             if (!Obj1.isWall() && !Obj2.isWall()) {
                 ((Ball)Obj1).bounceB((Ball)Obj2, true); //just put a placeholder true for now. remember 
                 //to update this statement based on the change you made to Ball.java
@@ -99,7 +101,8 @@ class Simulator{
     }
     
    boolean isColliding(Event evt) { //so will check the root event i.e. event with smallest distanceObj12()
-      return evt.distanceObj12() < 5.0f;
+      //System.out.println("colliding");
+      return evt.distanceObj12() <= 5.5f;
    }
    
    void initialDrawCP5() {
@@ -195,17 +198,20 @@ class Simulator{
     }
    
     void simLoop(){ // the loop that puts all the helper functs together. should be called in draw()
+        //System.out.println("Invoked.");
         long startTime = System.currentTimeMillis();
         generalVarUpdate(); //use appropriate instance variable values
         if(play){
             //playingUpdate(); //translate balls (will have to figure out x- & y- components & update visually
             Event pEvt = PQ.peek();
             if(isColliding(pEvt)){
+                //System.out.println("invoked");
                 //update instance vars & textfields of balls based on collision calculations
                 Obj Obj1 = pEvt.getObj1();
                 Obj Obj2 = pEvt.getObj2();
                 ///*
                 if(!Obj1.isWall() && !Obj2.isWall()){
+                  
                     ((Ball)Obj1).bounceB((Ball)Obj2, true); //just put a placeholder true for now. remember 
                     //to update this statement based on the change you made to Ball.java
                     //need to update x & y vals?

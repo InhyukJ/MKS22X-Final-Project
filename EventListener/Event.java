@@ -24,6 +24,8 @@ public class Event {
     //Distance between two objects, walls are offset by 30, 30
     public float distanceObj12() {
 	if (!a.isWall() && !b.isWall()) {//this will change once 2D is implemented
+  //System.out.println("balls");
+  //System.out.println(Math.abs(a.getX() - b.getX()));
 	    return Math.abs(a.getX() - b.getX());
 	}
 	else {
