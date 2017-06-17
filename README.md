@@ -25,7 +25,7 @@
 </ul>
 <br>
 <h3> UML Diagram </h3> <!-- to be updated at very end -->
-    <!--<img src="">-->
+    <img src="CS Project Proposals & Prototype (Spring).jpg">
 <br>
 <b> Dev. Log </b>
 <ul>
