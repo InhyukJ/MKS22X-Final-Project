@@ -85,7 +85,7 @@ class Simulator{
           .setMode(ControlP5.SWITCH);
        cp5.addSlider("SimulationSpeed") //create sim spd slider
           .setPosition(820, 30)
-          .setRange(1, 15);
+          .setRange(1, 40);
        cp5.addToggle("Inelastic") //add in more options like so later
           .setPosition(770, 80)
           .setValue(true)
@@ -110,7 +110,7 @@ class Simulator{
           .setSize(60, 20)
           .setText("430")
           .setValue(430);
-       cp5.addTextfield("v1")
+       cp5.addTextfield("v1") //add Y option?-------------------------------------------------------
           .setPosition(240, 410)
           .setSize(60, 20)
           .setText("5")
@@ -140,6 +140,9 @@ class Simulator{
        text("Position (m)", 160, 400);
        text("Velocity (m/s)", 240, 400);
        //Also print momentum & KE-------------------------------------------------------------------
+       text("Momentum (kg*m/s)", 340, 400);
+       text("Kinetic Energy", 480, 400);
+       //text(objects.get);
        
    }
    
@@ -225,6 +228,8 @@ public void Restart(int theValue){
     ((Ball)(simulator.getObjects()).get(5)).setX(simulator.getIPosX2());
     ((Ball)(simulator.getObjects()).get(4)).setY(200);//change this for 2D--------------------------
     ((Ball)(simulator.getObjects()).get(5)).setY(200);
+    ((Ball)(simulator.getObjects()).get(4)).setVelDir(0);//change this for 2D--------------------------
+    ((Ball)(simulator.getObjects()).get(5)).setVelDir(180);
     cp5.getController("Play").setValue(0);
 }
 
