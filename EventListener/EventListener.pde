@@ -139,11 +139,12 @@ class Simulator{
        text("Mass (kg)", 80, 400);
        text("Position (m)", 160, 400);
        text("Velocity (m/s)", 240, 400);
-       //Also print momentum & KE-------------------------------------------------------------------
        text("Momentum (kg*m/s)", 340, 400);
-       text("Kinetic Energy", 480, 400);
-       //text(objects.get);
-       
+       text("Kinetic Energy (J)", 480, 400);
+       text(((Ball)(objects.get(4))).momentum(), 340, 425);
+       text(((Ball)(objects.get(4))).kineticEnergy(), 480, 425);
+       text(((Ball)(objects.get(5))).momentum(), 340, 495);
+       text(((Ball)(objects.get(5))).kineticEnergy(), 480, 495);
    }
    
     void generalVarUpdate(){ //uses instance variables to update balls' vel, velDir, mass, and radius
