@@ -2,6 +2,8 @@
 <h1><u> Project Title: Collision Simulation </u></h1>
 <h2> Team Name:  (Inhyuk Jun & Winnie Chen Pd. 10) </h2>
 <br>
+<a href="https://docs.google.com/a/stuy.edu/document/d/1zUjmv0Ju6JxZ-WDXiuN-f27jyM76EbTEz0Kuzz4Mg7s/edit?usp=sharing"><h3> Online Prototype Link </h3></a>
+<br>
 <!-- add in helpful diagrams (at end?) -->
 <h3> Directions </h3>
 <ol>
