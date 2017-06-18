@@ -13,14 +13,14 @@
 <br>
 <h3> Features </h3>
 <ul>
-    <li>  </li>
-    <li>  </li>
-    <li>  </li>
-    <li>  </li>
-    <li>  </li>
-    <li>  </li>
-    <li>  </li>
-    <li>  </li>
+    <li> The Java program will calculate the predict collisions between two balls and the enclosing walls. The values and behavior of the balls will change accordingly. </li>
+    <li> A window produced by Processing will show the changing positions of the 2 balls during the simulation. </li>
+    <li> Mass, initial position, and velocity of the balls can be manipulated by the user with the text boxes. </li>
+    <li> Simulation speed can be manipulated with the slider. </li>
+    <li> The simulation can be started and paused with a toggle button. </li>
+    <li> Elasticity can be toggled using a toggle button. </li>
+    <li> The reset button will return the balls to the initial positions specified by the user. </li>
+    <li> The balls' momentum and kinetic energy are displayed and updated for the user. </li>
     
 </ul>
 <br>
