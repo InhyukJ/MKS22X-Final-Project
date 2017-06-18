@@ -8,7 +8,7 @@
 <!-- add in helpful diagrams (at end?) -->
 <h3> Directions </h3>
 <ol>
-    <li> Run the EventListener.pde file </li>
+<li> Run the EventListener.pde file in the <em>Winnie4</em> branch </li>
 </ol>
 <br>
 <h3> Features </h3>
