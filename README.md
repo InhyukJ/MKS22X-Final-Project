@@ -15,13 +15,12 @@
     False = elastic </li>
     <li> Use the simulation slider to speed up the rate of the simulation. </li>
     <li> Toggle the play button to play or pause the simulation. <br>
-    True = simulation runnining <br>
+    True = simulation running <br>
     False = simulation paused </li>
     <li> The controllers above can be changed/used as the simulation is playing. However, the initial position of the balls will not affect the current positions of the balls. </li>
     <li> Use the restart button to restart the simulation, returning the balls to their specified initial positions. </li>
 </ol>
-<!--<img src="">-->
-<br>
+<img src="Diagram of Features.jpg">
 <h3> Features </h3>
 <ul>
     <li> The Java program will calculate the predict collisions between two balls and the enclosing walls. The values and behavior of the balls will change accordingly. </li>
