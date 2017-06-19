@@ -24,6 +24,14 @@
     
 </ul>
 <br>
+<h3> Known Bugs </h3>
+<ul>
+    <li> The center of the balls are used to detect collisions rather than the edge of the balls. </li>
+    <li> The textfields of the simulation are not updated with the simulation. </li>
+    <li> The balls sometimes get caught on a wall. </li>
+    <li> The balls sometimes disappear after colliding. </li>
+</ul>
+<br>
 <h3> UML Diagram </h3> <!-- to be updated at very end -->
     *For each instance variable, if logical, create get and set methods (not necessarily included in the UML diagram)
     <br>
