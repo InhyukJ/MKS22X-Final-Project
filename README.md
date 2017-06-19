@@ -1,6 +1,6 @@
 # MKS22X-Final-Project
 <h1><u> Project Title: Collision Simulation </u></h1>
-<h2> Team Name:  (Inhyuk Jun & Winnie Chen Pd. 10) </h2>
+<h2> Team Name: Shrug (Inhyuk Jun & Winnie Chen Pd. 10) </h2>
 <br>
 <h3> Online Prototype Link </h3>
 <a href="https://docs.google.com/a/stuy.edu/document/d/1zUjmv0Ju6JxZ-WDXiuN-f27jyM76EbTEz0Kuzz4Mg7s/edit?usp=sharing"> updated online version of prototype </a>
@@ -21,7 +21,6 @@
     <li> Elasticity can be toggled using a toggle button. </li>
     <li> The reset button will return the balls to the initial positions specified by the user. </li>
     <li> The balls' momentum and kinetic energy are displayed and updated for the user. </li>
-    
 </ul>
 <br>
 <h3> Known Bugs </h3>
