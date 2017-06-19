@@ -52,15 +52,41 @@
 <br>
 <b> Dev. Log </b>
 <ul>
-    <li> 2017-06-11
+    <li> 2017-06-11 & 12
         <ul>  
-            <li> Visual Setup Working </li>
+            <li> Visual Setup Working (displays objects, ControlP5 elements, and text) </li>
         </ul>
     </li>
     <li> 2017-06-16
         <ul>  
-            <li> Satisfactory Visualization </li> 
-            <li> Bug Fixes: </li>
+            <li> Satisfactory Visualization of Perfectly Inelastic Collision </li>  
+            <li> Added Elastic Calculations to Simulation </li>
+            <li> Bug Fixes
+                <ul>  
+                    <li> Accounted for sleeping for a negative remaining time in looping </li>
+                    <li> Fixed isColliding() and distance traveled when simulation running to detect ball-ball collisions </li> 
+                    <li> Simulation Speed Simulator Works </li>
+                </ul>
+            </li>
+        </ul>
+    </li> 
+    <li> 2017-06-17
+        <ul>  
+            <li> Momentum, and kinetic energy displayed </li> 
+            <li> Bug Fixes
+                <ul>
+                    <li>  </li>
+                </ul>
+            </li>
+        </ul>
+    </li> 
+    <li> 2017-06-18
+        <ul> 
+            <li> Bug Fixes
+                <ul>
+                    <li> Dealt with non-numeric arguments from textfields </li>
+                </ul>
+            </li>
         </ul>
     </li>
 </ul>
