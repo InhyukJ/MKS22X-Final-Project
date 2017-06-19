@@ -72,7 +72,7 @@ class Simulator{
     void setInelastic(boolean inelastic){this.inelastic = inelastic;}
     
    boolean isColliding(Event evt) { //so will check the root event i.e. event with smallest distanceObj12()
-      return evt.distanceObj12() <= 5.5f;
+      return evt.distanceObj12() <= 4.5f;
    }
    
    void initialDrawCP5() {
