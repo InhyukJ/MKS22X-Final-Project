@@ -259,7 +259,11 @@ public void Inelastic(int theValue){
 
 public void m1(String theText){ //triggered/updated when ENTER key pressed
     //System.out.println("m1 changed: " + Float.parseFloat(theText));
-    simulator.setMass1(Float.parseFloat(theText));
+    try{
+        simulator.setMass1(Float.parseFloat(theText));
+    }catch(NumberFormatException e){
+        
+    }
     //cp5.getController("m1").setText(theText); //must re-display entered value--------error----------
 }
 
@@ -268,27 +272,47 @@ public void m1(String theText){ //triggered/updated when ENTER key pressed
 
 public void m2(String theText){
     //System.out.println("m2 changed: " + Float.parseFloat(theText));
-    simulator.setMass2(Float.parseFloat(theText));
+    try{
+        simulator.setMass2(Float.parseFloat(theText));
+    }catch(NumberFormatException e){
+        
+    }
 }
 
 public void x1(String theText){
     //System.out.println("x1 changed: " + Float.parseFloat(theText));
-    simulator.setIPosX1(Float.parseFloat(theText));
+    try{
+        simulator.setIPosX1(Float.parseFloat(theText));
+    }catch(NumberFormatException e){
+        
+    }
 }
 
 public void x2(String theText){
     //System.out.println("x2 changed: " + Float.parseFloat(theText));
-    simulator.setIPosX2(Float.parseFloat(theText));
+    try{
+        simulator.setIPosX2(Float.parseFloat(theText));
+    }catch(NumberFormatException e){
+        
+    }
 }
 
 public void v1(String theText){
     //System.out.println("v1 changed: " + Float.parseFloat(theText));
-    simulator.setSpd1(Float.parseFloat(theText));
+    try{
+        simulator.setSpd1(Float.parseFloat(theText));
+    }catch(NumberFormatException e){
+        
+    }
 }
 
 public void v2(String theText){
     //System.out.println("v2 changed: " + Float.parseFloat(theText));
-    simulator.setSpd2(Float.parseFloat(theText));
+    try{
+        simulator.setSpd2(Float.parseFloat(theText));
+    }catch(NumberFormatException e){
+        
+    }
 }
 
 
