@@ -8,8 +8,19 @@
 <!-- add in helpful diagrams (at end?) -->
 <h3> Directions </h3>
 <ol>
-<li> Run the EventListener.pde file in the <em>Winnie4</em> branch </li>
+    <li> Run the EventListener.pde file in the <em>master</em> or <em>Winnie4</em> branch </li>
+    <li> Enter new values into the corresponding textfields to change the mass (analogous to the radius of the balls in this case), velocity, and initial x-position of the two balls. </li>
+    <li> Toggle the inelasticity switch to determine the behavior of the balls in collisions. <br>
+    True = perfectly inelastic <br>
+    False = elastic </li>
+    <li> Use the simulation slider to speed up the rate of the simulation. </li>
+    <li> Toggle the play button to play or pause the simulation. <br>
+    True = simulation runnining <br>
+    False = simulation paused </li>
+    <li> The controllers above can be changed/used as the simulation is playing. However, the initial position of the balls will not affect the current positions of the balls. </li>
+    <li> Use the restart button to restart the simulation, returning the balls to their specified initial positions. </li>
 </ol>
+<!--<img src="">-->
 <br>
 <h3> Features </h3>
 <ul>
@@ -25,9 +36,11 @@
 <br>
 <h3> Known Bugs </h3>
 <ul>
-    <li> The center of the balls are used to detect collisions rather than the edge of the balls. </li>
+    <li> In the <em>Winnie4</em> branch, the center of the balls are used to detect collisions rather than the edge of the balls. </li>
+    <li> In the <em>master</em> branch, the balls bounce before the edges actually touch. </li>
+    <li> During collisions, balls seem to pause, then return to normal speed. </li>
     <li> The textfields of the simulation are not updated with the simulation. </li>
-    <li> The balls sometimes get caught on a wall. </li>
+    <li> The balls sometimes get caught on a wall or pass through. </li>
     <li> The balls sometimes disappear after colliding. </li>
 </ul>
 <br>
